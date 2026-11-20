@@ -135,7 +135,7 @@ textarea.modal-input:focus{border-color:var(--accent)}
   height: 32px;
 }
 
-/* Горизонтальная палитра стикеров (строго под ними) */
+/* Стили для палитры стикеров */
 .sticker-color-bar {
   display: flex;
   align-items: center;
@@ -196,6 +196,7 @@ textarea.modal-input:focus{border-color:var(--accent)}
 </div><div class="prop-row"><div class="slider-item" style="width:100%"><div class="slider-header"><span>Прозрачность объекта</span><span id="valOpacity">100</span></div><input type="range" id="objOpacity" min="0" max="100" value="100"></div></div><div class="prop-row" style="margin-top:18px"><button class="style-btn" id="btnDeleteText" style="background:#4a2525;color:#ffb3b3;border-color:#632c2c;width:100%">Удалить выбранный текст</button></div></div></div>
 <div class="tool-content" id="tab-stickers">
   <div class="controls-row" id="stickerGrid"></div>
+  <div id="stickerColorBarContainer"></div>
   <label class="style-btn" style="display:block;text-align:center;margin-top:10px;background:var(--panel2)">Загрузить свой стикер<input type="file" id="stickerFile" accept="image/*" hidden></label>
 </div>
 <div class="tool-content" id="tab-effects"><div class="controls-row effects-grid" id="effectGrid">
@@ -959,7 +960,7 @@ function renderStickers(){
     grid.appendChild(btn);
   });
 
-  // 3. Горизонтальная палитра цветов (внизу)
+  // 3. Горизонтальная палитра цветов (внизу, под стикерами)
   const colorPalette = [
     { name: 'Золотой', value: '#e0a85a' },
     { name: 'Белый', value: '#ffffff' },
@@ -973,6 +974,9 @@ function renderStickers(){
     { name: 'Бирюзовый', value: '#5fb3a8' },
   ];
 
+  const colorBarContainer = $('stickerColorBarContainer');
+  colorBarContainer.innerHTML = '';
+  
   const colorBar = document.createElement('div');
   colorBar.className = 'sticker-color-bar';
   colorBar.style.width = '100%';
@@ -1010,7 +1014,7 @@ function renderStickers(){
     colorBar.appendChild(swatch);
   });
 
-  grid.appendChild(colorBar);
+  colorBarContainer.appendChild(colorBar);
 }
 
 $('stickerFile').onchange=e=>{const file=e.target.files[0];if(!file||!photo)return;const img=new Image();img.onload=()=>{snap();objects.push({type:'image',img,x:cv.width/2,y:cv.height/2,w:Math.min(200,cv.width*.4),h:Math.min(200,cv.height*.4),rotation:0,scale:1,opacity:100,hidden:false});selected=objects.length-1;render()};img.src=URL.createObjectURL(file)};
