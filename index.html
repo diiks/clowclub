@@ -119,11 +119,51 @@ textarea.modal-input:focus{border-color:var(--accent)}
 #toggleTextShadow{min-width:145px}
 #toggleTextShadow.active{background:linear-gradient(180deg, #f2c17a, #c98a5b);color:#2a1810;border-color:#f7d49b;box-shadow:0 3px 12px rgba(224,168,90,.35), inset 0 1px 0 rgba(255,255,255,.3)}
 .text-extra-tools .swatches{padding:3px 0 8px}
-/* Стили для палитры стикеров */
-.sticker-color-picker{display:flex;gap:6px;flex-wrap:wrap;padding:8px 0 4px 0;justify-content:center}
-.sticker-color-swatch{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .1s, box-shadow .15s;box-shadow:0 2px 4px rgba(0,0,0,.4);flex:0 0 auto}
-.sticker-color-swatch:hover{transform:scale(1.15)}
-.sticker-color-swatch.active{border-color:#f7ebdc;transform:scale(1.2);box-shadow:0 0 0 2px var(--accent), 0 0 8px var(--accent-glow)}
+/* Компактные кнопки стикеров */
+#stickerGrid .control-card {
+  min-width: 52px;
+  width: 52px;
+  height: 52px;
+  padding: 6px;
+  justify-content: center;
+  border-radius: 10px;
+  flex: 0 0 52px;
+}
+#stickerGrid .control-card svg {
+  width: 32px;
+  height: 32px;
+}
+/* Горизонтальная палитра стикеров */
+.sticker-color-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: linear-gradient(180deg, #2a1a11, #1d110a);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 8px;
+  border-radius: 8px;
+}
+.sticker-color-bar::-webkit-scrollbar { display: none; }
+.sticker-color-swatch {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  flex: 0 0 24px;
+  transition: transform .1s, box-shadow .15s;
+  box-shadow: 0 2px 4px rgba(0,0,0,.4);
+}
+.sticker-color-swatch:hover { transform: scale(1.15); }
+.sticker-color-swatch.active {
+  border-color: #f7ebdc;
+  transform: scale(1.2);
+  box-shadow: 0 0 0 2px var(--accent), 0 0 8px var(--accent-glow);
+}
 @media(max-width:480px){.tool-content{padding:12px}.tab-btn{padding:13px 14px;font-size:14px}.font-arrow{width:44px;height:44px;flex-basis:44px}}
 </style>
 </head>
@@ -221,25 +261,21 @@ const $=id=>document.getElementById(id),cv=$('canvas'),ctx=cv.getContext('2d');
 let photo=null,objects=[],selected=-1,history=[],future=[],zoom=1;
 let adjust={exposure:0,brightness:0,contrast:0,saturation:0,blur:0};
 let activeAdjust='exposure',activeEffect='original',effectStrength=100;
-let currentStickerColor = '#e0a85a'; // цвет для новых стикеров
+let currentStickerColor = '#e0a85a';
 const effects={original:{filter:'none',tint:null},twilight:{filter:'saturate(1.38) contrast(1.28) brightness(.91)',tint:null},lowcontrast:{filter:'brightness(.758) contrast(1.20)',tint:null},rose:{filter:'saturate(1.62) contrast(1.14) brightness(1.04)',tint:'#c43f70'},blush:{filter:'saturate(.82) brightness(1.06)',tint:'#e9aebc'},cream:{filter:'saturate(.72) sepia(.12) brightness(1.08)',tint:'#ead8bd'},mauve:{filter:'saturate(.78) hue-rotate(325deg) brightness(1.02)',tint:'#987080'},sage:{filter:'saturate(.72) hue-rotate(18deg) brightness(1.03)',tint:'#82947b'},warm:{filter:'sepia(.22) saturate(1.05) brightness(1.04)',tint:'#d9ae68'},lavender:{filter:'saturate(.78) hue-rotate(245deg) brightness(1.04)',tint:'#a99acb'},matte:{filter:'saturate(.72) contrast(.88) brightness(1.06)',tint:'#b8a99d'},mono:{filter:'grayscale(1) contrast(1.05)',tint:null},cherry:{filter:'saturate(1.65) contrast(1.12) brightness(1.02) hue-rotate(-8deg)',tint:'#b51f4b'},pinkfilm:{filter:'saturate(1.35) contrast(1.08) brightness(1.08)',tint:'#f05b9b'},sunset:{filter:'sepia(.32) saturate(1.55) contrast(1.08) brightness(1.06)',tint:'#f07835'},emerald:{filter:'saturate(1.45) contrast(1.16) hue-rotate(12deg)',tint:'#167a52'},berrypop:{filter:'saturate(1.75) contrast(1.18) hue-rotate(-18deg)',tint:'#7d174e'},goldenhour:{filter:'sepia(.42) saturate(1.42) brightness(1.1) contrast(1.06)',tint:'#e6a52f'},icyblue:{filter:'saturate(1.22) contrast(1.12) hue-rotate(165deg) brightness(1.04)',tint:'#3c9bc7'},terracotta:{filter:'sepia(.38) saturate(1.55) contrast(1.12)',tint:'#c45b32'},moody:{filter:'saturate(.82) contrast(1.42) brightness(.82)',tint:'#342238'},vivid:{filter:'saturate(1.95) contrast(1.2) brightness(1.04)',tint:'#8c3c8e'}};
 let editingIndex=-1;
 
-/* === РАСШИРЕННЫЙ КАТАЛОГ ВЕКТОРНЫХ СТИКЕРОВ (50 штук!) === */
+/* Каталог стикеров (без 4-х указанных) + новые */
 const shapeStickers = [
-  // Стрелки
-  { name:'Стрелка →', type:'arrow' },
+  // Стрелки (без arrow, arrow-curved, arrow-zigzag, arrow-bold)
   { name:'Стрелка ←', type:'arrow-left' },
   { name:'Пунктир →', type:'arrow-dashed' },
   { name:'Пунктир ←', type:'arrow-dashed-left' },
   { name:'Стрелка ↑', type:'arrow-up' },
   { name:'Двойная ↔', type:'arrow-double' },
   { name:'Стрелка ↙', type:'arrow-diag' },
-  { name:'Изогнутая', type:'arrow-curved' },
   { name:'С петлёй', type:'arrow-loop' },
-  { name:'Зигзаг', type:'arrow-zigzag' },
   { name:'Тройная', type:'arrow-triple' },
-  { name:'Жирная →', type:'arrow-bold' },
   // Мазки и линии
   { name:'Мазок', type:'brush' },
   { name:'Мазок 2', type:'brush-2' },
@@ -284,6 +320,17 @@ const shapeStickers = [
   { name:'Искры', type:'sparkles' },
   { name:'Клякса', type:'splat' },
   { name:'Уголки', type:'corners' },
+  // Новые красивые стикеры
+  { name:'Облако', type:'cloud' },
+  { name:'Солнце', type:'sun' },
+  { name:'Радуга', type:'rainbow' },
+  { name:'Планета', type:'planet' },
+  { name:'Вихрь', type:'swirl' },
+  { name:'Волна 2', type:'wave2' },
+  { name:'Лист', type:'leaf' },
+  { name:'Перо', type:'feather' },
+  { name:'Корона', type:'crown' },
+  { name:'Кристалл', type:'crystal' },
 ];
 
 function init(){renderStickers();render();updateHistory();setupAdjustments();setupSliderGuards()}
@@ -301,7 +348,6 @@ function setupSliderGuards(){
   });
 }
 
-/* === ФУНКЦИЯ ОТРИСОВКИ ВСЕХ ВЕКТОРНЫХ СТИКЕРОВ (с поддержкой цвета) === */
 function drawShapeSticker(ctx, shape, color) {
   const w = 100, h = 60;
   ctx.save();
@@ -313,10 +359,6 @@ function drawShapeSticker(ctx, shape, color) {
   
   switch(shape) {
     // --- СТРЕЛКИ ---
-    case 'arrow':
-      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(w/2 - 15, -12);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 12);ctx.stroke();
-      break;
     case 'arrow-left':
       ctx.beginPath();ctx.moveTo(w/2, 0);ctx.lineTo(-w/2 + 10, 0);ctx.stroke();
       ctx.beginPath();ctx.moveTo(-w/2 + 15, -12);ctx.lineTo(-w/2, 0);ctx.lineTo(-w/2 + 15, 12);ctx.stroke();
@@ -346,16 +388,8 @@ function drawShapeSticker(ctx, shape, color) {
       ctx.beginPath();ctx.moveTo(w/2, -h/2);ctx.lineTo(-w/2, h/2);ctx.stroke();
       ctx.beginPath();ctx.moveTo(-w/2 + 15, h/2);ctx.lineTo(-w/2, h/2);ctx.lineTo(-w/2, h/2 - 15);ctx.stroke();
       break;
-    case 'arrow-curved':
-      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.quadraticCurveTo(0, -30, w/2 - 10, 0);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(w/2 - 18, -10);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 18, 10);ctx.stroke();
-      break;
     case 'arrow-loop':
       ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.bezierCurveTo(-20, -40, 20, 40, w/2 - 10, 0);ctx.stroke();
-      ctx.beginPath();ctx.moveTo(w/2 - 15, -10);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 10);ctx.stroke();
-      break;
-    case 'arrow-zigzag':
-      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(-w/4, -15);ctx.lineTo(0, 0);ctx.lineTo(w/4, -15);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
       ctx.beginPath();ctx.moveTo(w/2 - 15, -10);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 10);ctx.stroke();
       break;
     case 'arrow-triple':
@@ -363,10 +397,6 @@ function drawShapeSticker(ctx, shape, color) {
       ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
       ctx.beginPath();ctx.moveTo(-w/2, 10);ctx.lineTo(w/2 - 10, 10);ctx.stroke();
       ctx.beginPath();ctx.moveTo(w/2 - 15, -18);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 18);ctx.stroke();
-      break;
-    case 'arrow-bold':
-      ctx.lineWidth = 12;ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(w/2 - 15, 0);ctx.stroke();
-      ctx.lineWidth = 5;ctx.beginPath();ctx.moveTo(w/2 - 20, -18);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 20, 18);ctx.stroke();
       break;
     // --- МАЗКИ ---
     case 'brush':
@@ -526,33 +556,119 @@ function drawShapeSticker(ctx, shape, color) {
       break;
     case 'corners':
       ctx.lineWidth = 5;
-      // Верхний левый
       ctx.beginPath();ctx.moveTo(-w/2, -h/2 + 15);ctx.lineTo(-w/2, -h/2);ctx.lineTo(-w/2 + 15, -h/2);ctx.stroke();
-      // Верхний правый
       ctx.beginPath();ctx.moveTo(w/2 - 15, -h/2);ctx.lineTo(w/2, -h/2);ctx.lineTo(w/2, -h/2 + 15);ctx.stroke();
-      // Нижний левый
       ctx.beginPath();ctx.moveTo(-w/2, h/2 - 15);ctx.lineTo(-w/2, h/2);ctx.lineTo(-w/2 + 15, h/2);ctx.stroke();
-      // Нижний правый
       ctx.beginPath();ctx.moveTo(w/2 - 15, h/2);ctx.lineTo(w/2, h/2);ctx.lineTo(w/2, h/2 - 15);ctx.stroke();
+      break;
+    // --- НОВЫЕ СТИКЕРЫ ---
+    case 'cloud':
+      ctx.beginPath();
+      ctx.arc(-15, 0, 15, Math.PI*0.5, Math.PI*1.5);
+      ctx.arc(0, -8, 18, Math.PI, 0);
+      ctx.arc(15, 0, 15, Math.PI*1.5, Math.PI*0.5);
+      ctx.closePath();ctx.fill();
+      break;
+    case 'sun':
+      ctx.beginPath();ctx.arc(0, 0, 14, 0, Math.PI*2);ctx.fill();
+      ctx.lineWidth = 4;
+      for(let i=0;i<8;i++){
+        const a = i*Math.PI/4;
+        ctx.beginPath();
+        ctx.moveTo(Math.cos(a)*20, Math.sin(a)*20);
+        ctx.lineTo(Math.cos(a)*28, Math.sin(a)*28);
+        ctx.stroke();
+      }
+      break;
+    case 'rainbow':
+      ctx.lineWidth = 6;
+      ctx.beginPath();ctx.arc(0, 8, 28, Math.PI, 0);ctx.stroke();
+      ctx.lineWidth = 4;
+      ctx.beginPath();ctx.arc(0, 8, 20, Math.PI, 0);ctx.stroke();
+      ctx.beginPath();ctx.arc(0, 8, 12, Math.PI, 0);ctx.stroke();
+      break;
+    case 'planet':
+      ctx.beginPath();ctx.arc(0, 0, 16, 0, Math.PI*2);ctx.fill();
+      ctx.lineWidth = 3;
+      ctx.beginPath();ctx.ellipse(0, 0, 30, 10, -Math.PI/6, 0, Math.PI*2);ctx.stroke();
+      break;
+    case 'swirl':
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      for(let t=0;t<Math.PI*4;t+=0.1){
+        const r = 2 + t*2;
+        const x = Math.cos(t)*r;
+        const y = Math.sin(t)*r;
+        if(t===0)ctx.moveTo(x,y); else ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+      break;
+    case 'wave2':
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(-30, 0);
+      ctx.bezierCurveTo(-15, -25, 0, 25, 15, 0);
+      ctx.bezierCurveTo(25, -15, 30, 10, 35, 0);
+      ctx.stroke();
+      break;
+    case 'leaf':
+      ctx.beginPath();
+      ctx.moveTo(0, 25);
+      ctx.bezierCurveTo(-25, 5, -25, -20, 0, -25);
+      ctx.bezierCurveTo(25, -20, 25, 5, 0, 25);
+      ctx.fill();
+      ctx.strokeStyle = color || '#e0a85a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();ctx.moveTo(0, 25);ctx.lineTo(0, -15);ctx.stroke();
+      break;
+    case 'feather':
+      ctx.beginPath();
+      ctx.moveTo(-5, 25);
+      ctx.bezierCurveTo(-15, 10, -10, -15, 5, -25);
+      ctx.bezierCurveTo(15, -15, 15, 5, -5, 25);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255,255,255,0.4)';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();ctx.moveTo(-5, 25);ctx.lineTo(0, -15);ctx.stroke();
+      break;
+    case 'crown':
+      ctx.beginPath();
+      ctx.moveTo(-25, 15);
+      ctx.lineTo(-25, -10);
+      ctx.lineTo(-10, 5);
+      ctx.lineTo(0, -15);
+      ctx.lineTo(10, 5);
+      ctx.lineTo(25, -10);
+      ctx.lineTo(25, 15);
+      ctx.closePath();
+      ctx.fill();
+      break;
+    case 'crystal':
+      ctx.beginPath();
+      ctx.moveTo(0, -25);
+      ctx.lineTo(15, -5);
+      ctx.lineTo(8, 25);
+      ctx.lineTo(-8, 25);
+      ctx.lineTo(-15, -5);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(0, -25);ctx.lineTo(0, 25);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-15, -5);ctx.lineTo(8, 25);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(15, -5);ctx.lineTo(-8, 25);ctx.stroke();
       break;
   }
   ctx.restore();
 }
 
-/* Превью для панели (SVG) */
 const svgPreviews = {
-  'arrow':'M5 20 L50 20 M40 12 L50 20 L40 28',
   'arrow-left':'M55 20 L10 20 M20 12 L10 20 L20 28',
   'arrow-dashed':'M5 20 L45 20 M40 12 L50 20 L40 28',
   'arrow-dashed-left':'M55 20 L15 20 M20 12 L10 20 L20 28',
   'arrow-up':'M30 35 L30 5 M22 15 L30 5 L38 15',
   'arrow-double':'M10 20 L50 20 M45 12 L55 20 L45 28 M15 12 L5 20 L15 28',
   'arrow-diag':'M50 5 L10 35 M20 35 L10 35 L10 25',
-  'arrow-curved':'M5 20 Q30 5 50 20 M42 12 L50 20 L42 28',
   'arrow-loop':'M5 20 Q10 0 30 20 Q50 40 50 20 M42 12 L50 20 L42 28',
-  'arrow-zigzag':'M5 20 L15 12 L25 20 L35 12 L45 20 M40 14 L50 20 L40 26',
   'arrow-triple':'M5 15 L45 15 M5 20 L45 20 M5 25 L45 25 M40 10 L50 20 L40 30',
-  'arrow-bold':'M5 20 L45 20 M38 10 L50 20 L38 30',
   'brush':'M5 22 Q20 5 30 20 Q40 35 55 18',
   'brush-2':'M5 15 Q20 30 30 15 Q40 0 55 25',
   'brush-double':'M5 12 Q30 0 55 15 M5 28 Q30 40 55 25',
@@ -590,30 +706,33 @@ const svgPreviews = {
   'flower':'M30 20 m-5 0 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0 M30 10 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M30 30 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M20 20 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M40 20 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0',
   'sparkles':'M15 15 Q16 20 22 22 Q16 24 15 30 Q14 24 8 22 Q14 20 15 15 M42 10 Q43 15 48 16 Q43 17 42 22 Q41 17 36 16 Q41 15 42 10 M45 32 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0',
   'splat':'M30 20 m-10 0 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0 M15 12 m-3 0 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0 M45 30 m-3 0 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0',
-  'corners':'M5 20 L5 8 L17 8 M43 8 L55 8 L55 20 M5 30 L5 42 L17 42 M43 42 L55 42 L55 30'
+  'corners':'M5 20 L5 8 L17 8 M43 8 L55 8 L55 20 M5 30 L5 42 L17 42 M43 42 L55 42 L55 30',
+  // Новые превью
+  'cloud':'M15 20 A8 8 0 0 1 25 12 A10 10 0 0 1 45 15 A8 8 0 0 1 45 28 L15 28 A8 8 0 0 1 15 20 Z',
+  'sun':'M30 20 m-6 0 a6 6 0 1 0 12 0 a6 6 0 1 0 -12 0 M30 10 L30 5 M30 35 L30 40 M20 20 L15 20 M45 20 L40 20 M23 13 L18 8 M37 13 L42 8 M23 27 L18 32 M37 27 L42 32',
+  'rainbow':'M8 30 A22 22 0 0 1 52 30 M14 30 A16 16 0 0 1 46 30 M20 30 A10 10 0 0 1 40 30',
+  'planet':'M30 20 m-10 0 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0 M5 20 A25 8 0 0 1 55 20',
+  'swirl':'M30 20 Q30 10 20 10 Q10 10 10 20 Q10 35 30 35 Q50 35 50 15 Q50 5 30 5',
+  'wave2':'M5 20 Q12 5 20 20 Q28 35 35 20 Q42 5 50 20',
+  'leaf':'M30 30 C10 15 10 -5 30 -10 C50 -5 50 15 30 30 Z M30 30 L30 5',
+  'feather':'M25 35 Q10 20 20 5 Q35 -5 45 10 Q35 25 25 35 Z M25 35 L35 15',
+  'crown':'M5 10 L15 20 L25 5 L35 20 L45 10 L50 30 L0 30 Z',
+  'crystal':'M30 5 L45 15 L40 35 L20 35 L15 15 Z M30 5 L30 35 M15 15 L40 35 M45 15 L20 35'
 };
 
-// --- ФУНКЦИЯ ПЕРЕНОСА ТЕКСТА ---
 function wrapTextLines(text, maxWidth, font) {
-  // Разбиваем по явным переносам строк
   const paragraphs = text.split('\n');
   const lines = [];
   ctx.save();
   ctx.font = font;
-  
   for (const para of paragraphs) {
-    if (para === '') {
-      lines.push('');
-      continue;
-    }
+    if (para === '') { lines.push(''); continue; }
     const words = para.split(' ');
     let currentLine = '';
-    
     for (let i = 0; i < words.length; i++) {
       const word = words[i];
       const testLine = currentLine ? currentLine + ' ' + word : word;
       const metrics = ctx.measureText(testLine);
-      
       if (metrics.width > maxWidth && currentLine !== '') {
         lines.push(currentLine);
         currentLine = word;
@@ -621,45 +740,32 @@ function wrapTextLines(text, maxWidth, font) {
         currentLine = testLine;
       }
     }
-    if (currentLine !== '') {
-      lines.push(currentLine);
-    }
+    if (currentLine !== '') lines.push(currentLine);
   }
   ctx.restore();
   return lines;
 }
 
-// --- ФУНКЦИЯ ОТРИСОВКИ ТЕКСТА С ПЕРЕНОСОМ ---
 function drawTextWithWrap(ctx, o) {
   const font = `${o.italic?'italic ':''}${o.bold?'700':'400'} ${o.size}px "${fontForText(o)}"`;
   ctx.font = font;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
-  
   const displayText = o.upper ? o.text.toUpperCase() : o.text;
-  const maxWidth = cv.width * 0.9; // максимальная ширина текста — 90% ширины холста
-  
+  const maxWidth = cv.width * 0.9;
   const lines = wrapTextLines(displayText, maxWidth, font);
-  
-  // Вычисляем общую высоту блока
   const lineHeight = o.size * 1.2;
   const totalHeight = lines.length * lineHeight;
-  
-  // Начальная Y-координата (смещение вверх на половину общей высоты, чтобы центрировать)
   const startY = -totalHeight / 2 + lineHeight / 2;
-  
-  // Настройки тени и обводки
   if (o.shadowEnabled && o.shadowIntensity > 0) {
     ctx.shadowColor = `rgba(45,20,32,${Math.min(1, o.shadowIntensity / 100)})`;
     ctx.shadowBlur = Math.max(0, o.shadowIntensity) * 0.28;
     ctx.shadowOffsetX = Math.max(1, o.shadowIntensity * 0.06);
     ctx.shadowOffsetY = Math.max(1, o.shadowIntensity * 0.08);
   }
-  
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
     const y = startY + i * lineHeight;
-    
     if (o.strokeWidth > 0) {
       ctx.lineJoin = 'round';
       ctx.lineWidth = o.strokeWidth * 2;
@@ -669,8 +775,6 @@ function drawTextWithWrap(ctx, o) {
     ctx.fillStyle = o.color;
     ctx.fillText(line, 0, y);
   }
-  
-  // Сброс тени
   if (o.shadowEnabled) {
     ctx.shadowColor = 'transparent';
     ctx.shadowBlur = 0;
@@ -679,7 +783,6 @@ function drawTextWithWrap(ctx, o) {
   }
 }
 
-// --- ОБНОВЛЁННАЯ ФУНКЦИЯ ОТРИСОВКИ ---
 function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   if(photo){
@@ -813,12 +916,11 @@ $('toggleTextShadow').onclick=()=>{const o=objects[selected];if(o&&o.type==='tex
 $('shadowIntensity').oninput=e=>{const o=objects[selected];const v=+e.target.value;if(o&&o.type==='text'){o.shadowIntensity=v;o.shadowEnabled=v>0;$('shadowIntensityValue').textContent=v+'%';render()}};
 $('btnDeleteText').onclick=()=>{if(selected>=0){snap();objects.splice(selected,1);selected=-1;render()}};
 
-// --- ОБНОВЛЁННЫЙ РЕНДЕР СТИКЕРОВ С ПАЛИТРОЙ ЦВЕТОВ ---
 function renderStickers(){
   const grid = $('stickerGrid');
   grid.innerHTML = '';
 
-  // 1. Палитра цветов для стикеров
+  // 1. Горизонтальная палитра цветов внизу
   const colorPalette = [
     { name: 'Золотой', value: '#e0a85a' },
     { name: 'Белый', value: '#ffffff' },
@@ -832,9 +934,12 @@ function renderStickers(){
     { name: 'Бирюзовый', value: '#5fb3a8' },
   ];
 
-  const colorPickerDiv = document.createElement('div');
-  colorPickerDiv.className = 'sticker-color-picker';
-  colorPickerDiv.style.width = '100%';
+  const colorBar = document.createElement('div');
+  colorBar.className = 'sticker-color-bar';
+  colorBar.style.width = '100%';
+  colorBar.style.order = '2'; // Размещаем после кнопок
+  colorBar.style.marginTop = '4px';
+  colorBar.style.marginBottom = '0';
 
   colorPalette.forEach(c => {
     const swatch = document.createElement('div');
@@ -847,18 +952,32 @@ function renderStickers(){
       currentStickerColor = c.value;
       document.querySelectorAll('.sticker-color-swatch').forEach(s => s.classList.remove('active'));
       swatch.classList.add('active');
+      // Обновляем цвета в превью стикеров
+      document.querySelectorAll('#stickerGrid .control-card svg').forEach(svg => {
+        const path = svg.querySelector('path');
+        if (path) {
+          if (svg.closest('.control-card').dataset.filled === 'true') {
+            path.style.fill = currentStickerColor;
+          }
+          svg.style.stroke = currentStickerColor;
+        }
+      });
     };
-    colorPickerDiv.appendChild(swatch);
+    colorBar.appendChild(swatch);
   });
-
-  grid.appendChild(colorPickerDiv);
 
   // 2. Эмодзи-стикеры
   const emojis = ['✨','🌸','💗','🤍','🦋','⭐','☁️','🌷','🍒','🎀','♡','✦','✿','☀️','🌙','💫','🪞','💎','🕊️','🍓','🌿','🧸','🫧','♥'];
   emojis.forEach(e => {
     const btn = document.createElement('div');
     btn.className = 'control-card';
-    btn.style.minWidth = '60px';
+    btn.style.minWidth = '52px';
+    btn.style.width = '52px';
+    btn.style.height = '52px';
+    btn.style.padding = '6px';
+    btn.style.justifyContent = 'center';
+    btn.style.borderRadius = '10px';
+    btn.style.flex = '0 0 52px';
     btn.innerHTML = `<span class="icon" style="font-size:30px">${e}</span>`;
     btn.onclick = () => {
       if (!photo) return alert('Сначала загрузите фото');
@@ -881,13 +1000,22 @@ function renderStickers(){
   shapeStickers.forEach(shape => {
     const btn = document.createElement('div');
     btn.className = 'control-card';
-    btn.style.minWidth = '60px';
+    btn.style.minWidth = '52px';
+    btn.style.width = '52px';
+    btn.style.height = '52px';
+    btn.style.padding = '6px';
+    btn.style.justifyContent = 'center';
+    btn.style.borderRadius = '10px';
+    btn.style.flex = '0 0 52px';
     btn.title = shape.name;
+
+    const isFilled = ['heart', 'star', 'bolt', 'drop', 'sparkle', 'bow', 'flower', 'sparkles', 'splat', 'moon', 'cloud', 'sun', 'rainbow', 'planet', 'leaf', 'crown'].includes(shape.type);
+    btn.dataset.filled = isFilled ? 'true' : 'false';
 
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('viewBox', '0 0 60 40');
-    svg.setAttribute('width', '40');
-    svg.setAttribute('height', '28');
+    svg.setAttribute('width', '32');
+    svg.setAttribute('height', '32');
     svg.style.stroke = currentStickerColor;
     svg.style.fill = 'none';
     svg.style.strokeWidth = '2.5';
@@ -896,7 +1024,7 @@ function renderStickers(){
 
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', svgPreviews[shape.type] || '');
-    if (['heart', 'star', 'bolt', 'drop', 'sparkle', 'bow', 'flower', 'sparkles', 'splat', 'moon'].includes(shape.type)) {
+    if (isFilled) {
       path.style.fill = currentStickerColor;
       path.style.strokeWidth = '1';
     }
@@ -919,6 +1047,9 @@ function renderStickers(){
     };
     grid.appendChild(btn);
   });
+
+  // Добавляем палитру в конец
+  grid.appendChild(colorBar);
 }
 
 $('stickerFile').onchange=e=>{const file=e.target.files[0];if(!file||!photo)return;const img=new Image();img.onload=()=>{snap();objects.push({type:'image',img,x:cv.width/2,y:cv.height/2,w:Math.min(200,cv.width*.4),h:Math.min(200,cv.height*.4),rotation:0,scale:1,opacity:100,hidden:false});selected=objects.length-1;render()};img.src=URL.createObjectURL(file)};
