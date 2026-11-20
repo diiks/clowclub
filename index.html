@@ -119,6 +119,11 @@ textarea.modal-input:focus{border-color:var(--accent)}
 #toggleTextShadow{min-width:145px}
 #toggleTextShadow.active{background:linear-gradient(180deg, #f2c17a, #c98a5b);color:#2a1810;border-color:#f7d49b;box-shadow:0 3px 12px rgba(224,168,90,.35), inset 0 1px 0 rgba(255,255,255,.3)}
 .text-extra-tools .swatches{padding:3px 0 8px}
+/* Стили для палитры стикеров */
+.sticker-color-picker{display:flex;gap:6px;flex-wrap:wrap;padding:8px 0 4px 0;justify-content:center}
+.sticker-color-swatch{width:24px;height:24px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:transform .1s, box-shadow .15s;box-shadow:0 2px 4px rgba(0,0,0,.4);flex:0 0 auto}
+.sticker-color-swatch:hover{transform:scale(1.15)}
+.sticker-color-swatch.active{border-color:#f7ebdc;transform:scale(1.2);box-shadow:0 0 0 2px var(--accent), 0 0 8px var(--accent-glow)}
 @media(max-width:480px){.tool-content{padding:12px}.tab-btn{padding:13px 14px;font-size:14px}.font-arrow{width:44px;height:44px;flex-basis:44px}}
 </style>
 </head>
@@ -216,6 +221,7 @@ const $=id=>document.getElementById(id),cv=$('canvas'),ctx=cv.getContext('2d');
 let photo=null,objects=[],selected=-1,history=[],future=[],zoom=1;
 let adjust={exposure:0,brightness:0,contrast:0,saturation:0,blur:0};
 let activeAdjust='exposure',activeEffect='original',effectStrength=100;
+let currentStickerColor = '#e0a85a'; // цвет для новых стикеров
 const effects={original:{filter:'none',tint:null},twilight:{filter:'saturate(1.38) contrast(1.28) brightness(.91)',tint:null},lowcontrast:{filter:'brightness(.758) contrast(1.20)',tint:null},rose:{filter:'saturate(1.62) contrast(1.14) brightness(1.04)',tint:'#c43f70'},blush:{filter:'saturate(.82) brightness(1.06)',tint:'#e9aebc'},cream:{filter:'saturate(.72) sepia(.12) brightness(1.08)',tint:'#ead8bd'},mauve:{filter:'saturate(.78) hue-rotate(325deg) brightness(1.02)',tint:'#987080'},sage:{filter:'saturate(.72) hue-rotate(18deg) brightness(1.03)',tint:'#82947b'},warm:{filter:'sepia(.22) saturate(1.05) brightness(1.04)',tint:'#d9ae68'},lavender:{filter:'saturate(.78) hue-rotate(245deg) brightness(1.04)',tint:'#a99acb'},matte:{filter:'saturate(.72) contrast(.88) brightness(1.06)',tint:'#b8a99d'},mono:{filter:'grayscale(1) contrast(1.05)',tint:null},cherry:{filter:'saturate(1.65) contrast(1.12) brightness(1.02) hue-rotate(-8deg)',tint:'#b51f4b'},pinkfilm:{filter:'saturate(1.35) contrast(1.08) brightness(1.08)',tint:'#f05b9b'},sunset:{filter:'sepia(.32) saturate(1.55) contrast(1.08) brightness(1.06)',tint:'#f07835'},emerald:{filter:'saturate(1.45) contrast(1.16) hue-rotate(12deg)',tint:'#167a52'},berrypop:{filter:'saturate(1.75) contrast(1.18) hue-rotate(-18deg)',tint:'#7d174e'},goldenhour:{filter:'sepia(.42) saturate(1.42) brightness(1.1) contrast(1.06)',tint:'#e6a52f'},icyblue:{filter:'saturate(1.22) contrast(1.12) hue-rotate(165deg) brightness(1.04)',tint:'#3c9bc7'},terracotta:{filter:'sepia(.38) saturate(1.55) contrast(1.12)',tint:'#c45b32'},moody:{filter:'saturate(.82) contrast(1.42) brightness(.82)',tint:'#342238'},vivid:{filter:'saturate(1.95) contrast(1.2) brightness(1.04)',tint:'#8c3c8e'}};
 let editingIndex=-1;
 
@@ -295,15 +301,15 @@ function setupSliderGuards(){
   });
 }
 
-/* === ФУНКЦИЯ ОТРИСОВКИ ВСЕХ ВЕКТОРНЫХ СТИКЕРОВ === */
-function drawShapeSticker(ctx, shape) {
+/* === ФУНКЦИЯ ОТРИСОВКИ ВСЕХ ВЕКТОРНЫХ СТИКЕРОВ (с поддержкой цвета) === */
+function drawShapeSticker(ctx, shape, color) {
   const w = 100, h = 60;
   ctx.save();
   ctx.lineWidth = 5;
   ctx.lineCap = 'round';
   ctx.lineJoin = 'round';
-  ctx.strokeStyle = '#e0a85a';
-  ctx.fillStyle = '#e0a85a';
+  ctx.strokeStyle = color || '#e0a85a';
+  ctx.fillStyle = color || '#e0a85a';
   
   switch(shape) {
     // --- СТРЕЛКИ ---
@@ -504,7 +510,7 @@ function drawShapeSticker(ctx, shape) {
       break;
     case 'flower':
       for(let i=0;i<6;i++){const a=i*Math.PI/3;const x=Math.cos(a)*14,y=Math.sin(a)*14;ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fill();}
-      ctx.fillStyle='#2a1810';ctx.beginPath();ctx.arc(0,0,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#e0a85a';
+      ctx.fillStyle='#2a1810';ctx.beginPath();ctx.arc(0,0,6,0,Math.PI*2);ctx.fill();ctx.fillStyle=color||'#e0a85a';
       break;
     case 'sparkles':
       ctx.beginPath();ctx.moveTo(-20, -10);ctx.quadraticCurveTo(-17, 0, -10, 3);ctx.quadraticCurveTo(-17, 6, -20, 15);ctx.quadraticCurveTo(-23, 6, -30, 3);ctx.quadraticCurveTo(-23, 0, -20, -10);ctx.fill();
@@ -587,6 +593,93 @@ const svgPreviews = {
   'corners':'M5 20 L5 8 L17 8 M43 8 L55 8 L55 20 M5 30 L5 42 L17 42 M43 42 L55 42 L55 30'
 };
 
+// --- ФУНКЦИЯ ПЕРЕНОСА ТЕКСТА ---
+function wrapTextLines(text, maxWidth, font) {
+  // Разбиваем по явным переносам строк
+  const paragraphs = text.split('\n');
+  const lines = [];
+  ctx.save();
+  ctx.font = font;
+  
+  for (const para of paragraphs) {
+    if (para === '') {
+      lines.push('');
+      continue;
+    }
+    const words = para.split(' ');
+    let currentLine = '';
+    
+    for (let i = 0; i < words.length; i++) {
+      const word = words[i];
+      const testLine = currentLine ? currentLine + ' ' + word : word;
+      const metrics = ctx.measureText(testLine);
+      
+      if (metrics.width > maxWidth && currentLine !== '') {
+        lines.push(currentLine);
+        currentLine = word;
+      } else {
+        currentLine = testLine;
+      }
+    }
+    if (currentLine !== '') {
+      lines.push(currentLine);
+    }
+  }
+  ctx.restore();
+  return lines;
+}
+
+// --- ФУНКЦИЯ ОТРИСОВКИ ТЕКСТА С ПЕРЕНОСОМ ---
+function drawTextWithWrap(ctx, o) {
+  const font = `${o.italic?'italic ':''}${o.bold?'700':'400'} ${o.size}px "${fontForText(o)}"`;
+  ctx.font = font;
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  
+  const displayText = o.upper ? o.text.toUpperCase() : o.text;
+  const maxWidth = cv.width * 0.9; // максимальная ширина текста — 90% ширины холста
+  
+  const lines = wrapTextLines(displayText, maxWidth, font);
+  
+  // Вычисляем общую высоту блока
+  const lineHeight = o.size * 1.2;
+  const totalHeight = lines.length * lineHeight;
+  
+  // Начальная Y-координата (смещение вверх на половину общей высоты, чтобы центрировать)
+  const startY = -totalHeight / 2 + lineHeight / 2;
+  
+  // Настройки тени и обводки
+  if (o.shadowEnabled && o.shadowIntensity > 0) {
+    ctx.shadowColor = `rgba(45,20,32,${Math.min(1, o.shadowIntensity / 100)})`;
+    ctx.shadowBlur = Math.max(0, o.shadowIntensity) * 0.28;
+    ctx.shadowOffsetX = Math.max(1, o.shadowIntensity * 0.06);
+    ctx.shadowOffsetY = Math.max(1, o.shadowIntensity * 0.08);
+  }
+  
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const y = startY + i * lineHeight;
+    
+    if (o.strokeWidth > 0) {
+      ctx.lineJoin = 'round';
+      ctx.lineWidth = o.strokeWidth * 2;
+      ctx.strokeStyle = o.strokeColor || '#171717';
+      ctx.strokeText(line, 0, y);
+    }
+    ctx.fillStyle = o.color;
+    ctx.fillText(line, 0, y);
+  }
+  
+  // Сброс тени
+  if (o.shadowEnabled) {
+    ctx.shadowColor = 'transparent';
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetX = 0;
+    ctx.shadowOffsetY = 0;
+  }
+}
+
+// --- ОБНОВЛЁННАЯ ФУНКЦИЯ ОТРИСОВКИ ---
 function draw(){
   ctx.clearRect(0,0,cv.width,cv.height);
   if(photo){
@@ -618,16 +711,11 @@ function draw(){
     ctx.rotate(o.rotation*Math.PI/180);
     ctx.scale(o.scale,o.scale);
     if(o.type==='text'){
-      ctx.font=`${o.italic?'italic ':''}${o.bold?'700':'400'} ${o.size}px "${fontForText(o)}"`;
-      ctx.textAlign='center';ctx.textBaseline='middle';
-      const t=o.upper?o.text.toUpperCase():o.text;
-      if(o.shadowEnabled&&o.shadowIntensity>0){ctx.shadowColor=`rgba(45,20,32,${Math.min(1,o.shadowIntensity/100)})`;ctx.shadowBlur=Math.max(0,o.shadowIntensity)*.28;ctx.shadowOffsetX=Math.max(1,o.shadowIntensity*.06);ctx.shadowOffsetY=Math.max(1,o.shadowIntensity*.08)}
-      if(o.strokeWidth>0){ctx.lineJoin='round';ctx.lineWidth=o.strokeWidth*2;ctx.strokeStyle=o.strokeColor||'#171717';ctx.strokeText(t,0,0)}
-      ctx.fillStyle=o.color;ctx.fillText(t,0,0);
+      drawTextWithWrap(ctx, o);
     } else if(o.type==='image'){
       ctx.drawImage(o.img,-o.w/2,-o.h/2,o.w,o.h);
     } else if(o.type==='shape'){
-      drawShapeSticker(ctx, o.shape);
+      drawShapeSticker(ctx, o.shape, o.color);
     }
     ctx.restore();
     if(i===selected){
@@ -651,9 +739,20 @@ function draw(){
 function getBounds(o){
   if(o.type==='text'){
     ctx.save();
-    ctx.font=`${o.italic?'italic ':''}${o.bold?'700':'400'} ${o.size}px "${fontForText(o)}"`;
-    const w=ctx.measureText(o.text).width;ctx.restore();
-    return{w:w*o.scale,h:o.size*1.2*o.scale};
+    const font = `${o.italic?'italic ':''}${o.bold?'700':'400'} ${o.size}px "${fontForText(o)}"`;
+    ctx.font = font;
+    const displayText = o.upper ? o.text.toUpperCase() : o.text;
+    const maxWidth = cv.width * 0.9;
+    const lines = wrapTextLines(displayText, maxWidth, font);
+    let maxLineWidth = 0;
+    for (const line of lines) {
+      const w = ctx.measureText(line).width;
+      if (w > maxLineWidth) maxLineWidth = w;
+    }
+    const lineHeight = o.size * 1.2;
+    const totalHeight = lines.length * lineHeight;
+    ctx.restore();
+    return {w: maxLineWidth * o.scale, h: totalHeight * o.scale};
   }
   if(o.type==='shape'){
     return {w:100*o.scale, h:60*o.scale};
@@ -714,30 +813,110 @@ $('toggleTextShadow').onclick=()=>{const o=objects[selected];if(o&&o.type==='tex
 $('shadowIntensity').oninput=e=>{const o=objects[selected];const v=+e.target.value;if(o&&o.type==='text'){o.shadowIntensity=v;o.shadowEnabled=v>0;$('shadowIntensityValue').textContent=v+'%';render()}};
 $('btnDeleteText').onclick=()=>{if(selected>=0){snap();objects.splice(selected,1);selected=-1;render()}};
 
+// --- ОБНОВЛЁННЫЙ РЕНДЕР СТИКЕРОВ С ПАЛИТРОЙ ЦВЕТОВ ---
 function renderStickers(){
-  const emojis=['✨','🌸','💗','🤍','🦋','⭐','☁️','🌷','🍒','🎀','♡','✦','✿','☀️','🌙','💫','🪞','💎','🕊️','🍓','🌿','🧸','🫧','♥'];
-  const grid=$('stickerGrid');grid.innerHTML='';
-  emojis.forEach(e=>{
-    const btn=document.createElement('div');btn.className='control-card';btn.style.minWidth='60px';
-    btn.innerHTML=`<span class="icon" style="font-size:30px">${e}</span>`;
-    btn.onclick=()=>{if(!photo)return alert('Сначала загрузите фото');snap();objects.push({type:'text',text:e,sticker:true,x:cv.width/2,y:cv.height/2,font:'Arial',size:100,color:'#ffffff',bold:false,italic:false,upper:false,rotation:0,scale:1,opacity:100,hidden:false});selected=objects.length-1;render()};
+  const grid = $('stickerGrid');
+  grid.innerHTML = '';
+
+  // 1. Палитра цветов для стикеров
+  const colorPalette = [
+    { name: 'Золотой', value: '#e0a85a' },
+    { name: 'Белый', value: '#ffffff' },
+    { name: 'Чёрный', value: '#171717' },
+    { name: 'Розовый', value: '#e9b9c1' },
+    { name: 'Красный', value: '#d44b5a' },
+    { name: 'Синий', value: '#6a9ec7' },
+    { name: 'Зелёный', value: '#84927c' },
+    { name: 'Фиолетовый', value: '#a99acb' },
+    { name: 'Оранжевый', value: '#e88a4a' },
+    { name: 'Бирюзовый', value: '#5fb3a8' },
+  ];
+
+  const colorPickerDiv = document.createElement('div');
+  colorPickerDiv.className = 'sticker-color-picker';
+  colorPickerDiv.style.width = '100%';
+
+  colorPalette.forEach(c => {
+    const swatch = document.createElement('div');
+    swatch.className = 'sticker-color-swatch' + (c.value === currentStickerColor ? ' active' : '');
+    swatch.style.background = c.value;
+    swatch.title = c.name;
+    swatch.dataset.color = c.value;
+    swatch.onclick = (e) => {
+      e.stopPropagation();
+      currentStickerColor = c.value;
+      document.querySelectorAll('.sticker-color-swatch').forEach(s => s.classList.remove('active'));
+      swatch.classList.add('active');
+    };
+    colorPickerDiv.appendChild(swatch);
+  });
+
+  grid.appendChild(colorPickerDiv);
+
+  // 2. Эмодзи-стикеры
+  const emojis = ['✨','🌸','💗','🤍','🦋','⭐','☁️','🌷','🍒','🎀','♡','✦','✿','☀️','🌙','💫','🪞','💎','🕊️','🍓','🌿','🧸','🫧','♥'];
+  emojis.forEach(e => {
+    const btn = document.createElement('div');
+    btn.className = 'control-card';
+    btn.style.minWidth = '60px';
+    btn.innerHTML = `<span class="icon" style="font-size:30px">${e}</span>`;
+    btn.onclick = () => {
+      if (!photo) return alert('Сначала загрузите фото');
+      snap();
+      objects.push({
+        type: 'text', text: e, sticker: true,
+        x: cv.width / 2, y: cv.height / 2,
+        font: 'Arial', size: 100,
+        color: currentStickerColor,
+        bold: false, italic: false, upper: false,
+        rotation: 0, scale: 1, opacity: 100, hidden: false
+      });
+      selected = objects.length - 1;
+      render();
+    };
     grid.appendChild(btn);
   });
-  shapeStickers.forEach(shape=>{
-    const btn=document.createElement('div');btn.className='control-card';btn.style.minWidth='60px';btn.title=shape.name;
-    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('viewBox','0 0 60 40');svg.setAttribute('width','40');svg.setAttribute('height','28');
-    svg.style.stroke='#e0a85a';svg.style.fill='none';svg.style.strokeWidth='2.5';svg.style.strokeLinecap='round';svg.style.strokeLinejoin='round';
-    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+
+  // 3. Векторные стикеры
+  shapeStickers.forEach(shape => {
+    const btn = document.createElement('div');
+    btn.className = 'control-card';
+    btn.style.minWidth = '60px';
+    btn.title = shape.name;
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('viewBox', '0 0 60 40');
+    svg.setAttribute('width', '40');
+    svg.setAttribute('height', '28');
+    svg.style.stroke = currentStickerColor;
+    svg.style.fill = 'none';
+    svg.style.strokeWidth = '2.5';
+    svg.style.strokeLinecap = 'round';
+    svg.style.strokeLinejoin = 'round';
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     path.setAttribute('d', svgPreviews[shape.type] || '');
-    if(shape.type==='heart'||shape.type==='star'||shape.type==='bolt'||shape.type==='drop'||shape.type==='sparkle'||shape.type==='bow'||shape.type==='flower'||shape.type==='sparkles'||shape.type==='splat'||shape.type==='moon'){
-      path.style.fill='#e0a85a';path.style.strokeWidth='1';
+    if (['heart', 'star', 'bolt', 'drop', 'sparkle', 'bow', 'flower', 'sparkles', 'splat', 'moon'].includes(shape.type)) {
+      path.style.fill = currentStickerColor;
+      path.style.strokeWidth = '1';
     }
-    if(shape.type.includes('dashed')||shape.type==='circle-dashed'||shape.type==='wave-dashed'){
-      path.setAttribute('stroke-dasharray','4 3');
+    if (shape.type.includes('dashed') || shape.type === 'circle-dashed' || shape.type === 'wave-dashed') {
+      path.setAttribute('stroke-dasharray', '4 3');
     }
-    svg.appendChild(path);btn.appendChild(svg);
-    btn.onclick=()=>{if(!photo)return alert('Сначала загрузите фото');snap();objects.push({type:'shape',shape:shape.type,x:cv.width/2,y:cv.height/2,rotation:0,scale:1,opacity:100,hidden:false});selected=objects.length-1;render()};
+    svg.appendChild(path);
+    btn.appendChild(svg);
+
+    btn.onclick = () => {
+      if (!photo) return alert('Сначала загрузите фото');
+      snap();
+      objects.push({
+        type: 'shape', shape: shape.type, color: currentStickerColor,
+        x: cv.width / 2, y: cv.height / 2,
+        rotation: 0, scale: 1, opacity: 100, hidden: false
+      });
+      selected = objects.length - 1;
+      render();
+    };
     grid.appendChild(btn);
   });
 }
