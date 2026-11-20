@@ -6,7 +6,6 @@
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Caveat:wght@400;500;600;700&family=Great+Vibes&family=Marck+Script&family=Pacifico&family=Lobster&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@400;500;600;700&family=Roboto+Slab:wght@400;500;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap');
 
-/* --- HONEY & AMBER DARK THEME --- */
 :root{
   --bg:#1a120e;
   --bg-grad:radial-gradient(ellipse at 50% 25%, #4a2c1f 0%, #2e1a12 55%, #150c08 100%);
@@ -19,524 +18,108 @@
   --accent-2:#c98a5b;
   --accent-hover:#f2c17a;
   --accent-glow:rgba(224,168,90,.45);
-  --shadow-deep:0 8px 24px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05);
   --shadow-btn:0 4px 14px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1), inset 0 -2px 4px rgba(0,0,0,.3);
   --shadow-btn-pressed:inset 0 3px 8px rgba(0,0,0,.6), inset 0 -1px 2px rgba(255,255,255,.03);
 }
-
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-
-body{
-  margin:0;
-  background:var(--bg-grad);
-  background-attachment:fixed;
-  color:var(--text);
-  font:14px Inter,Arial,sans-serif;
-  overflow:hidden;
-  display:flex;
-  flex-direction:column;
-  height:100vh;height:100dvh;
-  position:relative;
-}
-
-header{
-  height:60px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding:0 16px;
-  background:linear-gradient(180deg, #2a1810, #1e110a);
-  border-bottom:1px solid var(--line);
-  box-shadow:0 4px 18px rgba(0,0,0,.4), inset 0 -1px 0 rgba(255,255,255,.03);
-  flex:0 0 auto;
-  z-index:10;
-  position:relative;
-}
+body{margin:0;background:var(--bg-grad);background-attachment:fixed;color:var(--text);font:14px Inter,Arial,sans-serif;overflow:hidden;display:flex;flex-direction:column;height:100vh;height:100dvh;position:relative}
+header{height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:linear-gradient(180deg, #2a1810, #1e110a);border-bottom:1px solid var(--line);box-shadow:0 4px 18px rgba(0,0,0,.4), inset 0 -1px 0 rgba(255,255,255,.03);flex:0 0 auto;z-index:10;position:relative}
 .header-left,.header-right{display:flex;align-items:center;gap:16px}
-
-.icon-btn{
-  background:linear-gradient(180deg, #3a2318, #25160e);
-  border:1px solid var(--line);
-  border-radius:12px;
-  color:var(--text);
-  font-size:20px;
-  cursor:pointer;
-  padding:8px 12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  box-shadow:var(--shadow-btn);
-  transition:transform .12s ease, box-shadow .15s ease, background .15s;
-}
-.icon-btn:hover{
-  background:linear-gradient(180deg, #4a2c1f, #302016);
-  color:var(--accent);
-}
-.icon-btn:active{
-  transform:translateY(1px) scale(.97);
-  box-shadow:var(--shadow-btn-pressed);
-}
+.icon-btn{background:linear-gradient(180deg, #3a2318, #25160e);border:1px solid var(--line);border-radius:12px;color:var(--text);font-size:20px;cursor:pointer;padding:8px 12px;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-btn);transition:transform .12s ease, box-shadow .15s ease, background .15s}
+.icon-btn:hover{background:linear-gradient(180deg, #4a2c1f, #302016);color:var(--accent)}
+.icon-btn:active{transform:translateY(1px) scale(.97);box-shadow:var(--shadow-btn-pressed)}
 .icon-btn:disabled{opacity:.3;cursor:not-allowed;box-shadow:none}
-
-.save-btn{
-  background:linear-gradient(180deg, #f2c17a, #c98a5b);
-  border:1px solid #f7d49b;
-  color:#2a1810;
-  border-radius:12px;
-  padding:9px 22px;
-  font-weight:800;
-  font-size:15px;
-  cursor:pointer;
-  box-shadow:0 4px 16px rgba(224,168,90,.5), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -3px 6px rgba(0,0,0,.2);
-  transition:transform .12s ease, box-shadow .15s ease, filter .15s;
-  letter-spacing:.3px;
-}
+.save-btn{background:linear-gradient(180deg, #f2c17a, #c98a5b);border:1px solid #f7d49b;color:#2a1810;border-radius:12px;padding:9px 22px;font-weight:800;font-size:15px;cursor:pointer;box-shadow:0 4px 16px rgba(224,168,90,.5), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -3px 6px rgba(0,0,0,.2);transition:transform .12s ease, box-shadow .15s ease, filter .15s;letter-spacing:.3px}
 .save-btn:hover{filter:brightness(1.08)}
-.save-btn:active{
-  transform:translateY(2px) scale(.97);
-  box-shadow:inset 0 3px 10px rgba(0,0,0,.4);
-}
-
-.dots-btn{
-  background:linear-gradient(180deg, #3a2318, #25160e);
-  border:1px solid var(--line);
-  color:var(--text);
-  width:38px;height:38px;
-  border-radius:12px;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:var(--shadow-btn);
-  transition:transform .12s, box-shadow .15s, background .15s;
-}
+.save-btn:active{transform:translateY(2px) scale(.97);box-shadow:inset 0 3px 10px rgba(0,0,0,.4)}
+.dots-btn{background:linear-gradient(180deg, #3a2318, #25160e);border:1px solid var(--line);color:var(--text);width:38px;height:38px;border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:var(--shadow-btn);transition:transform .12s, box-shadow .15s, background .15s}
 .dots-btn:hover{background:linear-gradient(180deg, #4a2c1f, #302016);color:var(--accent)}
 .dots-btn:active{transform:translateY(1px) scale(.94);box-shadow:var(--shadow-btn-pressed)}
-
-.main-workspace{
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  position:relative;
-  overflow:hidden;
-  background:var(--bg-grad);
-  z-index:1;
-}
-.canvas-container{
-  flex:1;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  overflow:hidden;
-  position:relative;
-  padding:20px;
-}
-canvas{
-  display:block;
-  box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 30px rgba(224,168,90,.15);
-  border-radius:6px;
-  touch-action:none;
-  transition:transform .1s ease-out;
-  border:1px solid rgba(224,168,90,.3);
-}
-.canvas-add{
-  position:absolute;
-  right:20px;bottom:20px;
-  width:54px;height:54px;
-  border-radius:50%;
-  background:linear-gradient(180deg, #f2c17a, #c98a5b);
-  color:#2a1810;
-  font-size:30px;
-  border:1px solid #f7d49b;
-  cursor:pointer;
-  box-shadow:0 4px 18px rgba(224,168,90,.55), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -4px 8px rgba(0,0,0,.2);
-  display:flex;align-items:center;justify-content:center;
-  z-index:5;
-  transition:transform .12s, box-shadow .15s, filter .15s;
-}
+.main-workspace{flex:1;display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--bg-grad);z-index:1}
+.canvas-container{flex:1;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;padding:20px}
+canvas{display:block;box-shadow:0 20px 50px rgba(0,0,0,.6), 0 0 30px rgba(224,168,90,.15);border-radius:6px;touch-action:none;transition:transform .1s ease-out;border:1px solid rgba(224,168,90,.3)}
+.canvas-add{position:absolute;right:20px;bottom:20px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg, #f2c17a, #c98a5b);color:#2a1810;font-size:30px;border:1px solid #f7d49b;cursor:pointer;box-shadow:0 4px 18px rgba(224,168,90,.55), inset 0 1px 0 rgba(255,255,255,.4), inset 0 -4px 8px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;z-index:5;transition:transform .12s, box-shadow .15s, filter .15s}
 .canvas-add:hover{filter:brightness(1.08)}
-.canvas-add:active{
-  transform:scale(.92);
-  box-shadow:inset 0 4px 12px rgba(0,0,0,.4);
-}
-
-.bottom-panel{
-  flex:0 0 auto;
-  background:linear-gradient(180deg, #2a1810, #1a0f09);
-  border-top:1px solid var(--line);
-  display:flex;
-  flex-direction:column;
-  box-shadow:0 -6px 22px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.03);
-  z-index:10;
-  position:relative;
-}
-.tabs{
-  display:grid;
-  grid-template-columns:repeat(4,minmax(0,1fr));
-  width:100%;
-  overflow:hidden;
-  padding:0;
-  border-bottom:1px solid var(--line);
-  background:linear-gradient(180deg, #301c13, #211209);
-}
-.tab-btn{
-  background:none;
-  border:0;
-  color:var(--muted);
-  padding:14px 4px;
-  font-size:clamp(12px,3.5vw,15px);
-  font-weight:700;
-  cursor:pointer;
-  white-space:nowrap;
-  position:relative;
-  width:100%;
-  min-width:0;
-  text-align:center;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  transition:color .15s, background .15s, text-shadow .15s;
-}
+.canvas-add:active{transform:scale(.92);box-shadow:inset 0 4px 12px rgba(0,0,0,.4)}
+.bottom-panel{flex:0 0 auto;background:linear-gradient(180deg, #2a1810, #1a0f09);border-top:1px solid var(--line);display:flex;flex-direction:column;box-shadow:0 -6px 22px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.03);z-index:10;position:relative}
+.tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;overflow:hidden;padding:0;border-bottom:1px solid var(--line);background:linear-gradient(180deg, #301c13, #211209)}
+.tab-btn{background:none;border:0;color:var(--muted);padding:14px 4px;font-size:clamp(12px,3.5vw,15px);font-weight:700;cursor:pointer;white-space:nowrap;position:relative;width:100%;min-width:0;text-align:center;display:flex;align-items:center;justify-content:center;transition:color .15s, background .15s, text-shadow .15s}
 .tab-btn:hover{color:#f0d3a8}
-.tab-btn.active{
-  color:var(--accent);
-  text-shadow:0 0 12px var(--accent-glow);
-}
-.tab-btn.active::after{
-  content:'';
-  position:absolute;
-  bottom:-1px;left:0;width:100%;height:3px;
-  background:linear-gradient(90deg, transparent, var(--accent), transparent);
-  border-radius:3px 3px 0 0;
-  box-shadow:0 0 10px var(--accent-glow);
-}
-
-.tool-content{
-  display:none;
-  padding:16px;
-  height:130px;
-  overflow-y:auto;
-  overflow-x:hidden;
-  background:linear-gradient(180deg, #24160f, #180d07);
-}
+.tab-btn.active{color:var(--accent);text-shadow:0 0 12px var(--accent-glow)}
+.tab-btn.active::after{content:'';position:absolute;bottom:-1px;left:0;width:100%;height:3px;background:linear-gradient(90deg, transparent, var(--accent), transparent);border-radius:3px 3px 0 0;box-shadow:0 0 10px var(--accent-glow)}
+.tool-content{display:none;padding:16px;height:130px;overflow-y:auto;overflow-x:hidden;background:linear-gradient(180deg, #24160f, #180d07)}
 .tool-content.active{display:block}
-
-.controls-row{
-  display:flex;
-  gap:12px;
-  overflow-x:auto;
-  padding-bottom:10px;
-  scrollbar-width:none;
-}
+.controls-row{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
 .controls-row::-webkit-scrollbar{display:none}
-
-.control-card{
-  background:linear-gradient(180deg, #3a2318, #25160e);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:12px;
-  min-width:100px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:8px;
-  cursor:pointer;
-  box-shadow:var(--shadow-btn);
-  transition:transform .12s, box-shadow .15s, background .15s;
-}
-.control-card:hover{
-  background:linear-gradient(180deg, #4a2c1f, #302016);
-}
-.control-card:active{
-  transform:translateY(2px) scale(.96);
-  box-shadow:var(--shadow-btn-pressed);
-}
-.control-card.active{
-  border-color:var(--accent);
-  background:linear-gradient(180deg, #6e4a2a, #3a2114);
-  box-shadow:0 4px 14px rgba(224,168,90,.25), inset 0 1px 0 rgba(255,255,255,.15);
-}
+.control-card{background:linear-gradient(180deg, #3a2318, #25160e);border:1px solid var(--line);border-radius:14px;padding:12px;min-width:100px;display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;box-shadow:var(--shadow-btn);transition:transform .12s, box-shadow .15s, background .15s}
+.control-card:hover{background:linear-gradient(180deg, #4a2c1f, #302016)}
+.control-card:active{transform:translateY(2px) scale(.96);box-shadow:var(--shadow-btn-pressed)}
+.control-card.active{border-color:var(--accent);background:linear-gradient(180deg, #6e4a2a, #3a2114);box-shadow:0 4px 14px rgba(224,168,90,.25), inset 0 1px 0 rgba(255,255,255,.15)}
 .control-card .icon{font-size:24px;opacity:.95}
 .control-card .label{font-size:12px;color:var(--muted);text-align:center}
 .control-card.active .label{color:var(--text)}
 .control-card svg{width:32px;height:32px;color:var(--accent);stroke:currentColor;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-
 .effects-grid{flex-wrap:nowrap}
 .effects-grid .control-card{min-width:82px}
 #tab-text{height:170px}
 #tab-effects{height:130px}
-
 .slider-group{display:flex;flex-direction:column;gap:16px;max-width:600px;margin:0 auto}
 .slider-item{display:flex;flex-direction:column;gap:8px}
 .slider-header{display:flex;justify-content:space-between;font-size:13px;color:var(--muted)}
-
-/* === УЛУЧШЕННЫЕ ПОЛЗУНКИ === */
-input[type=range]{
-  -webkit-appearance:none;
-  width:100%;
-  background:transparent;
-  height:30px;
-  padding:0;
-  margin:0;
-  cursor:pointer;
-  touch-action:pan-y;
-}
+input[type=range]{-webkit-appearance:none;width:100%;background:transparent;height:30px;padding:0;margin:0;cursor:pointer;touch-action:pan-y}
 input[type=range]:focus{outline:none}
-input[type=range]::-webkit-slider-runnable-track{
-  width:100%;height:6px;
-  background:linear-gradient(90deg, #2e1e15, #5a3a26, #2e1e15);
-  border-radius:3px;
-  box-shadow:inset 0 1px 3px rgba(0,0,0,.5);
-}
-input[type=range]::-webkit-slider-thumb{
-  -webkit-appearance:none;
-  height:20px;width:20px;
-  border-radius:50%;
-  background:linear-gradient(180deg, #f2c17a, #c98a5b);
-  cursor:grab;
-  margin-top:-7px;
-  box-shadow:0 2px 8px rgba(0,0,0,.5), 0 0 8px rgba(224,168,90,.4), inset 0 1px 0 rgba(255,255,255,.4);
-  border:1px solid #f7d49b;
-  transition:transform .12s;
-}
+input[type=range]::-webkit-slider-runnable-track{width:100%;height:6px;background:linear-gradient(90deg, #2e1e15, #5a3a26, #2e1e15);border-radius:3px;box-shadow:inset 0 1px 3px rgba(0,0,0,.5)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:20px;width:20px;border-radius:50%;background:linear-gradient(180deg, #f2c17a, #c98a5b);cursor:grab;margin-top:-7px;box-shadow:0 2px 8px rgba(0,0,0,.5), 0 0 8px rgba(224,168,90,.4), inset 0 1px 0 rgba(255,255,255,.4);border:1px solid #f7d49b;transition:transform .12s}
 input[type=range]::-webkit-slider-thumb:active{cursor:grabbing;transform:scale(1.2)}
-input[type=range]::-moz-range-track{
-  width:100%;height:6px;
-  background:linear-gradient(90deg, #2e1e15, #5a3a26, #2e1e15);
-  border-radius:3px;
-}
-input[type=range]::-moz-range-thumb{
-  height:20px;width:20px;border-radius:50%;
-  background:linear-gradient(180deg, #f2c17a, #c98a5b);
-  cursor:grab;
-  border:1px solid #f7d49b;
-  box-shadow:0 2px 8px rgba(0,0,0,.5), 0 0 8px rgba(224,168,90,.4);
-}
-
+input[type=range]::-moz-range-track{width:100%;height:6px;background:linear-gradient(90deg, #2e1e15, #5a3a26, #2e1e15);border-radius:3px}
+input[type=range]::-moz-range-thumb{height:20px;width:20px;border-radius:50%;background:linear-gradient(180deg, #f2c17a, #c98a5b);cursor:grab;border:1px solid #f7d49b;box-shadow:0 2px 8px rgba(0,0,0,.5), 0 0 8px rgba(224,168,90,.4)}
 .prop-row{display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .prop-row:last-child{margin-bottom:0}
-
-.field{
-  background:linear-gradient(180deg, #2a1a11, #1d110a);
-  border:1px solid var(--line);
-  color:var(--text);
-  border-radius:10px;
-  padding:8px 12px;
-  font:14px Inter;
-  outline:none;
-  flex:1;
-  box-shadow:inset 0 2px 5px rgba(0,0,0,.4);
-  transition:border-color .15s;
-}
+.field{background:linear-gradient(180deg, #2a1a11, #1d110a);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:8px 12px;font:14px Inter;outline:none;flex:1;box-shadow:inset 0 2px 5px rgba(0,0,0,.4);transition:border-color .15s}
 .field:focus{border-color:var(--accent)}
-
-#fontFamily{
-  min-height:42px;
-  font-size:15px;
-  font-weight:600;
-  background:linear-gradient(180deg, #3a2318, #25160e);
-  border:1px solid var(--line);
-  border-radius:12px;
-  box-shadow:var(--shadow-btn);
-  padding:10px 38px 10px 13px;
-  cursor:pointer;
-  color:var(--text);
-}
+#fontFamily{min-height:42px;font-size:15px;font-weight:600;background:linear-gradient(180deg, #3a2318, #25160e);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-btn);padding:10px 38px 10px 13px;cursor:pointer;color:var(--text)}
 #fontFamily option{background:#24160f;color:var(--text)}
-
-.style-btn{
-  border-radius:12px;
-  padding:10px 14px;
-  min-height:40px;
-  background:linear-gradient(180deg, #3a2318, #25160e);
-  border:1px solid var(--line);
-  color:var(--text);
-  font-size:12px;
-  font-weight:600;
-  cursor:pointer;
-  white-space:nowrap;
-  box-shadow:var(--shadow-btn);
-  transition:transform .12s, box-shadow .15s, background .15s;
-}
+.style-btn{border-radius:12px;padding:10px 14px;min-height:40px;background:linear-gradient(180deg, #3a2318, #25160e);border:1px solid var(--line);color:var(--text);font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;box-shadow:var(--shadow-btn);transition:transform .12s, box-shadow .15s, background .15s}
 .style-btn:hover{background:linear-gradient(180deg, #4a2c1f, #302016)}
-.style-btn:active{
-  transform:translateY(2px) scale(.96);
-  box-shadow:var(--shadow-btn-pressed);
-}
-.style-btn.active{
-  background:linear-gradient(180deg, #f2c17a, #c98a5b);
-  color:#2a1810;
-  border-color:#f7d49b;
-  box-shadow:0 3px 12px rgba(224,168,90,.35), inset 0 1px 0 rgba(255,255,255,.3);
-}
-
-.btn-save{
-  border-radius:12px;
-  background:linear-gradient(180deg, #f2c17a, #c98a5b);
-  box-shadow:0 4px 16px rgba(224,168,90,.45), inset 0 1px 0 rgba(255,255,255,.3), inset 0 -3px 6px rgba(0,0,0,.2);
-  transition:transform .12s, filter .15s;
-  color:#2a1810;
-  border:1px solid #f7d49b;
-  padding:10px 20px;
-  font-weight:800;
-  cursor:pointer;
-}
+.style-btn:active{transform:translateY(2px) scale(.96);box-shadow:var(--shadow-btn-pressed)}
+.style-btn.active{background:linear-gradient(180deg, #f2c17a, #c98a5b);color:#2a1810;border-color:#f7d49b;box-shadow:0 3px 12px rgba(224,168,90,.35), inset 0 1px 0 rgba(255,255,255,.3)}
+.btn-save{border-radius:12px;background:linear-gradient(180deg, #f2c17a, #c98a5b);box-shadow:0 4px 16px rgba(224,168,90,.45), inset 0 1px 0 rgba(255,255,255,.3), inset 0 -3px 6px rgba(0,0,0,.2);transition:transform .12s, filter .15s;color:#2a1810;border:1px solid #f7d49b;padding:10px 20px;font-weight:800;cursor:pointer}
 .btn-save:hover{filter:brightness(1.08)}
-.btn-save:active{
-  transform:translateY(2px) scale(.97);
-  box-shadow:inset 0 3px 10px rgba(0,0,0,.4);
-}
-
+.btn-save:active{transform:translateY(2px) scale(.97);box-shadow:inset 0 3px 10px rgba(0,0,0,.4)}
 .swatches{display:flex;gap:8px;overflow-x:auto;padding:4px 0}
-.swatch{
-  width:30px;height:30px;border-radius:50%;
-  border:2px solid transparent;
-  cursor:pointer;
-  flex:0 0 auto;
-  transition:transform .1s, box-shadow .15s;
-  box-shadow:0 2px 6px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.25);
-}
+.swatch{width:30px;height:30px;border-radius:50%;border:2px solid transparent;cursor:pointer;flex:0 0 auto;transition:transform .1s, box-shadow .15s;box-shadow:0 2px 6px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.25)}
 .swatch:hover{transform:scale(1.1)}
-.swatch.active{
-  border-color:#f7ebdc;
-  transform:scale(1.15);
-  box-shadow:0 0 0 2px rgba(224,168,90,.6), 0 0 12px rgba(224,168,90,.4), inset 0 1px 0 rgba(255,255,255,.35);
-}
-
+.swatch.active{border-color:#f7ebdc;transform:scale(1.15);box-shadow:0 0 0 2px rgba(224,168,90,.6), 0 0 12px rgba(224,168,90,.4), inset 0 1px 0 rgba(255,255,255,.35)}
 .style-btns{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
-
-.modal-overlay{
-  position:fixed;inset:0;
-  background:rgba(0,0,0,.7);
-  backdrop-filter:blur(8px);
-  display:flex;align-items:center;justify-content:center;
-  z-index:1000;
-  opacity:0;pointer-events:none;
-  transition:opacity .25s;
-}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;pointer-events:none;transition:opacity .25s}
 .modal-overlay.visible{opacity:1;pointer-events:auto}
-.modal-box{
-  background:linear-gradient(180deg, #331e14, #1d0e09);
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:24px;
-  width:90%;max-width:400px;
-  box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 40px rgba(224,168,90,.15), inset 0 1px 0 rgba(255,255,255,.06);
-  transform:translateY(20px) scale(.95);
-  transition:transform .25s ease;
-}
+.modal-box{background:linear-gradient(180deg, #331e14, #1d0e09);border:1px solid var(--line);border-radius:18px;padding:24px;width:90%;max-width:400px;box-shadow:0 30px 80px rgba(0,0,0,.7), 0 0 40px rgba(224,168,90,.15), inset 0 1px 0 rgba(255,255,255,.06);transform:translateY(20px) scale(.95);transition:transform .25s ease}
 .modal-overlay.visible .modal-box{transform:translateY(0) scale(1)}
-.modal-title{
-  font-size:18px;
-  font-weight:700;
-  margin-bottom:16px;
-  color:var(--text);
-  text-shadow:0 0 10px var(--accent-glow);
-}
-textarea.modal-input{
-  width:100%;
-  height:100px;
-  background:linear-gradient(180deg, #1d110a, #130a06);
-  border:1px solid var(--line);
-  color:var(--text);
-  border-radius:10px;
-  padding:12px;
-  font:15px Inter;
-  resize:none;
-  outline:none;
-  box-shadow:inset 0 3px 8px rgba(0,0,0,.5);
-}
+.modal-title{font-size:18px;font-weight:700;margin-bottom:16px;color:var(--text);text-shadow:0 0 10px var(--accent-glow)}
+textarea.modal-input{width:100%;height:100px;background:linear-gradient(180deg, #1d110a, #130a06);border:1px solid var(--line);color:var(--text);border-radius:10px;padding:12px;font:15px Inter;resize:none;outline:none;box-shadow:inset 0 3px 8px rgba(0,0,0,.5)}
 textarea.modal-input:focus{border-color:var(--accent)}
 .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px}
-.btn-cancel{
-  background:linear-gradient(180deg, #2e1a12, #1d0e09);
-  border:1px solid var(--line);
-  color:var(--muted);
-  font-weight:600;
-  cursor:pointer;
-  padding:10px 18px;
-  border-radius:12px;
-  box-shadow:var(--shadow-btn);
-  transition:transform .12s, box-shadow .15s;
-}
+.btn-cancel{background:linear-gradient(180deg, #2e1a12, #1d0e09);border:1px solid var(--line);color:var(--muted);font-weight:600;cursor:pointer;padding:10px 18px;border-radius:12px;box-shadow:var(--shadow-btn);transition:transform .12s, box-shadow .15s}
 .btn-cancel:hover{color:var(--text)}
 .btn-cancel:active{transform:scale(.96);box-shadow:var(--shadow-btn-pressed)}
-
 .hidden{display:none!important}
 ::-webkit-scrollbar{width:8px;height:8px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{
-  background:linear-gradient(180deg, #5a3a26, #2e1e15);
-  border-radius:4px;
-}
-
-/* Font picker refinements */
+::-webkit-scrollbar-thumb{background:linear-gradient(180deg, #5a3a26, #2e1e15);border-radius:4px}
 .font-picker{gap:9px}
-.font-current{
-  flex:1;min-width:0;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:linear-gradient(180deg, #3a2318, #25160e);
-  border:1px solid var(--line);
-  border-radius:14px;
-  padding:7px 10px;
-  min-height:48px;
-  box-shadow:var(--shadow-btn);
-}
-.font-caption{
-  font:700 9px Inter,sans-serif;
-  letter-spacing:1.7px;
-  color:var(--accent);
-}
-.font-current #fontPreview{
-  font-size:17px;
-  color:var(--text);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width:100%;
-}
-.font-arrow{
-  width:46px;height:46px;flex:0 0 46px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:linear-gradient(180deg, #3a2318, #25160e);
-  color:var(--text);
-  font-size:29px;
-  line-height:1;
-  cursor:pointer;
-  box-shadow:var(--shadow-btn);
-  transition:transform .12s, box-shadow .15s, background .15s;
-  display:flex;align-items:center;justify-content:center;
-}
+.font-current{flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(180deg, #3a2318, #25160e);border:1px solid var(--line);border-radius:14px;padding:7px 10px;min-height:48px;box-shadow:var(--shadow-btn)}
+.font-caption{font:700 9px Inter,sans-serif;letter-spacing:1.7px;color:var(--accent)}
+.font-current #fontPreview{font-size:17px;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+.font-arrow{width:46px;height:46px;flex:0 0 46px;border:1px solid var(--line);border-radius:13px;background:linear-gradient(180deg, #3a2318, #25160e);color:var(--text);font-size:29px;line-height:1;cursor:pointer;box-shadow:var(--shadow-btn);transition:transform .12s, box-shadow .15s, background .15s;display:flex;align-items:center;justify-content:center}
 .font-arrow:hover{background:linear-gradient(180deg, #4a2c1f, #302016);color:var(--accent)}
 .font-arrow:active{transform:scale(.92);box-shadow:var(--shadow-btn-pressed)}
-
-.text-extra-tools{
-  padding:12px 0;
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-  margin:12px 0;
-}
-.text-tool-title{
-  font-size:12px;
-  font-weight:700;
-  letter-spacing:.5px;
-  color:var(--accent);
-  margin:4px 0 6px;
-}
+.text-extra-tools{padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:12px 0}
+.text-tool-title{font-size:12px;font-weight:700;letter-spacing:.5px;color:var(--accent);margin:4px 0 6px}
 .text-muted{font-size:12px;color:var(--muted)}
 #toggleTextShadow{min-width:145px}
-#toggleTextShadow.active{
-  background:linear-gradient(180deg, #f2c17a, #c98a5b);
-  color:#2a1810;
-  border-color:#f7d49b;
-  box-shadow:0 3px 12px rgba(224,168,90,.35), inset 0 1px 0 rgba(255,255,255,.3);
-}
+#toggleTextShadow.active{background:linear-gradient(180deg, #f2c17a, #c98a5b);color:#2a1810;border-color:#f7d49b;box-shadow:0 3px 12px rgba(224,168,90,.35), inset 0 1px 0 rgba(255,255,255,.3)}
 .text-extra-tools .swatches{padding:3px 0 8px}
-
-@media(max-width:480px){
-  .tool-content{padding:12px}
-  .tab-btn{padding:13px 14px;font-size:14px}
-  .font-arrow{width:44px;height:44px;flex-basis:44px}
-}
+@media(max-width:480px){.tool-content{padding:12px}.tab-btn{padding:13px 14px;font-size:14px}.font-arrow{width:44px;height:44px;flex-basis:44px}}
 </style>
 </head>
 <body>
@@ -593,7 +176,6 @@ textarea.modal-input:focus{border-color:var(--accent)}
 </div><div class="slider-group effect-strength-panel"><div class="slider-item"><div class="slider-header"><span>Интенсивность эффекта</span><span id="effectStrengthValue">100%</span></div><input type="range" id="effectStrength" min="0" max="100" value="100" step="1"></div></div></div>
 <div class="modal-overlay" id="textModal"><div class="modal-box"><div class="modal-title" id="modalTitle">Добавить текст</div><textarea class="modal-input" id="modalTextInput" placeholder="Введите текст..."></textarea><div class="modal-actions"><button class="btn-cancel" id="modalCancel">Отмена</button><button class="btn-save" id="modalSave">Готово</button></div></div></div>
 <script>
-/* === ГРОМКИЙ КОРОТКИЙ СТУК === */
 let audioCtx = null;
 let lastSoundTime = 0;
 function playClickSound() {
@@ -625,16 +207,21 @@ function playClickSound() {
     osc.start(now); osc.stop(now + 0.14);
   } catch (e) { /* silent */ }
 }
-
 document.addEventListener('DOMContentLoaded', () => {
   const clickables = document.querySelectorAll('button, .btn, .btn-save, .icon-btn, .dots-btn, .save-btn, .control-card, .style-btn, .font-arrow, .swatch, .canvas-add, .tab-btn, label.btn, label.style-btn');
   clickables.forEach(el => el.addEventListener('click', playClickSound));
 });
 
-const $=id=>document.getElementById(id),cv=$('canvas'),ctx=cv.getContext('2d');let photo=null,objects=[],selected=-1,history=[],future=[],zoom=1;let adjust={exposure:0,brightness:0,contrast:0,saturation:0,blur:0};let activeAdjust='exposure';let activeEffect='original';let effectStrength=100;const effects={original:{filter:'none',tint:null},twilight:{filter:'saturate(1.38) contrast(1.28) brightness(.91)',tint:null},lowcontrast:{filter:'brightness(.758) contrast(1.20)',tint:null},rose:{filter:'saturate(1.62) contrast(1.14) brightness(1.04)',tint:'#c43f70'},blush:{filter:'saturate(.82) brightness(1.06)',tint:'#e9aebc'},cream:{filter:'saturate(.72) sepia(.12) brightness(1.08)',tint:'#ead8bd'},mauve:{filter:'saturate(.78) hue-rotate(325deg) brightness(1.02)',tint:'#987080'},sage:{filter:'saturate(.72) hue-rotate(18deg) brightness(1.03)',tint:'#82947b'},warm:{filter:'sepia(.22) saturate(1.05) brightness(1.04)',tint:'#d9ae68'},lavender:{filter:'saturate(.78) hue-rotate(245deg) brightness(1.04)',tint:'#a99acb'},matte:{filter:'saturate(.72) contrast(.88) brightness(1.06)',tint:'#b8a99d'},mono:{filter:'grayscale(1) contrast(1.05)',tint:null},cherry:{filter:'saturate(1.65) contrast(1.12) brightness(1.02) hue-rotate(-8deg)',tint:'#b51f4b'},pinkfilm:{filter:'saturate(1.35) contrast(1.08) brightness(1.08)',tint:'#f05b9b'},sunset:{filter:'sepia(.32) saturate(1.55) contrast(1.08) brightness(1.06)',tint:'#f07835'},emerald:{filter:'saturate(1.45) contrast(1.16) hue-rotate(12deg)',tint:'#167a52'},berrypop:{filter:'saturate(1.75) contrast(1.18) hue-rotate(-18deg)',tint:'#7d174e'},goldenhour:{filter:'sepia(.42) saturate(1.42) brightness(1.1) contrast(1.06)',tint:'#e6a52f'},icyblue:{filter:'saturate(1.22) contrast(1.12) hue-rotate(165deg) brightness(1.04)',tint:'#3c9bc7'},terracotta:{filter:'sepia(.38) saturate(1.55) contrast(1.12)',tint:'#c45b32'},moody:{filter:'saturate(.82) contrast(1.42) brightness(.82)',tint:'#342238'},vivid:{filter:'saturate(1.95) contrast(1.2) brightness(1.04)',tint:'#8c3c8e'}};let editingIndex=-1;
+const $=id=>document.getElementById(id),cv=$('canvas'),ctx=cv.getContext('2d');
+let photo=null,objects=[],selected=-1,history=[],future=[],zoom=1;
+let adjust={exposure:0,brightness:0,contrast:0,saturation:0,blur:0};
+let activeAdjust='exposure',activeEffect='original',effectStrength=100;
+const effects={original:{filter:'none',tint:null},twilight:{filter:'saturate(1.38) contrast(1.28) brightness(.91)',tint:null},lowcontrast:{filter:'brightness(.758) contrast(1.20)',tint:null},rose:{filter:'saturate(1.62) contrast(1.14) brightness(1.04)',tint:'#c43f70'},blush:{filter:'saturate(.82) brightness(1.06)',tint:'#e9aebc'},cream:{filter:'saturate(.72) sepia(.12) brightness(1.08)',tint:'#ead8bd'},mauve:{filter:'saturate(.78) hue-rotate(325deg) brightness(1.02)',tint:'#987080'},sage:{filter:'saturate(.72) hue-rotate(18deg) brightness(1.03)',tint:'#82947b'},warm:{filter:'sepia(.22) saturate(1.05) brightness(1.04)',tint:'#d9ae68'},lavender:{filter:'saturate(.78) hue-rotate(245deg) brightness(1.04)',tint:'#a99acb'},matte:{filter:'saturate(.72) contrast(.88) brightness(1.06)',tint:'#b8a99d'},mono:{filter:'grayscale(1) contrast(1.05)',tint:null},cherry:{filter:'saturate(1.65) contrast(1.12) brightness(1.02) hue-rotate(-8deg)',tint:'#b51f4b'},pinkfilm:{filter:'saturate(1.35) contrast(1.08) brightness(1.08)',tint:'#f05b9b'},sunset:{filter:'sepia(.32) saturate(1.55) contrast(1.08) brightness(1.06)',tint:'#f07835'},emerald:{filter:'saturate(1.45) contrast(1.16) hue-rotate(12deg)',tint:'#167a52'},berrypop:{filter:'saturate(1.75) contrast(1.18) hue-rotate(-18deg)',tint:'#7d174e'},goldenhour:{filter:'sepia(.42) saturate(1.42) brightness(1.1) contrast(1.06)',tint:'#e6a52f'},icyblue:{filter:'saturate(1.22) contrast(1.12) hue-rotate(165deg) brightness(1.04)',tint:'#3c9bc7'},terracotta:{filter:'sepia(.38) saturate(1.55) contrast(1.12)',tint:'#c45b32'},moody:{filter:'saturate(.82) contrast(1.42) brightness(.82)',tint:'#342238'},vivid:{filter:'saturate(1.95) contrast(1.2) brightness(1.04)',tint:'#8c3c8e'}};
+let editingIndex=-1;
 
-/* === КАТАЛОГ ВЕКТОРНЫХ СТИКЕРОВ (стрелки, мазки, линии) === */
+/* === РАСШИРЕННЫЙ КАТАЛОГ ВЕКТОРНЫХ СТИКЕРОВ (50 штук!) === */
 const shapeStickers = [
+  // Стрелки
   { name:'Стрелка →', type:'arrow' },
   { name:'Стрелка ←', type:'arrow-left' },
   { name:'Пунктир →', type:'arrow-dashed' },
@@ -642,25 +229,60 @@ const shapeStickers = [
   { name:'Стрелка ↑', type:'arrow-up' },
   { name:'Двойная ↔', type:'arrow-double' },
   { name:'Стрелка ↙', type:'arrow-diag' },
+  { name:'Изогнутая', type:'arrow-curved' },
+  { name:'С петлёй', type:'arrow-loop' },
+  { name:'Зигзаг', type:'arrow-zigzag' },
+  { name:'Тройная', type:'arrow-triple' },
+  { name:'Жирная →', type:'arrow-bold' },
+  // Мазки и линии
   { name:'Мазок', type:'brush' },
   { name:'Мазок 2', type:'brush-2' },
+  { name:'Двойной мазок', type:'brush-double' },
   { name:'Подчёркивание', type:'underline' },
+  { name:'Двойное подчёрк.', type:'underline-double' },
   { name:'Волна', type:'wave' },
+  { name:'Пунктир волна', type:'wave-dashed' },
+  // Окончания
   { name:'Круг', type:'circle' },
   { name:'Круг пунктир', type:'circle-dashed' },
+  { name:'Круг с точкой', type:'circle-dot' },
   { name:'Сердце', type:'heart' },
+  { name:'Сердце контур', type:'heart-outline' },
   { name:'Звезда', type:'star' },
+  { name:'Блеск', type:'sparkle' },
+  { name:'Молния', type:'bolt' },
+  { name:'Полумесяц', type:'moon' },
+  { name:'Капля', type:'drop' },
+  // Скобки
   { name:'Скобка (', type:'paren-l' },
   { name:'Скобка )', type:'paren-r' },
+  { name:'Скобка [', type:'bracket-l' },
+  { name:'Скобка ]', type:'bracket-r' },
+  { name:'Квадратная рамка', type:'square-frame' },
+  // Значки
   { name:'Галочка', type:'check' },
+  { name:'Галочка в круге', type:'check-circle' },
   { name:'Крестик', type:'cross' },
+  { name:'Крестик в круге', type:'cross-circle' },
   { name:'Плюс', type:'plus' },
+  { name:'Восклицание', type:'exclaim' },
+  { name:'Вопрос', type:'question' },
+  // Геометрия
+  { name:'Треугольник', type:'triangle' },
+  { name:'Ромб', type:'diamond' },
+  { name:'Шестиугольник', type:'hexagon' },
+  { name:'Спираль', type:'spiral' },
+  // Декор
+  { name:'Бантик', type:'bow' },
+  { name:'Цветок', type:'flower' },
+  { name:'Искры', type:'sparkles' },
+  { name:'Клякса', type:'splat' },
+  { name:'Уголки', type:'corners' },
 ];
 
 function init(){renderStickers();render();updateHistory();setupAdjustments();setupSliderGuards()}
 function fitCanvasToScreen(){if(!photo)return;const container=$('canvasContainer'),maxW=container.clientWidth-40,maxH=container.clientHeight-40,scale=Math.min(maxW/cv.width,maxH/cv.height,1);cv.style.width=cv.width*scale+'px';cv.style.height=cv.height*scale+'px'}
 function fontForText(o){const f=o.font||'Playfair Display';if(/[\u0400-\u04FF]/.test(o.text||'')){if(f==='Great Vibes')return 'Marck Script';}return f}
-
 function setupSliderGuards(){
   document.querySelectorAll('input[type=range]').forEach(slider => {
     slider.addEventListener('pointerdown', (e) => {
@@ -673,7 +295,7 @@ function setupSliderGuards(){
   });
 }
 
-/* === ОТРИСОВКА ВЕКТОРНЫХ СТИКЕРОВ === */
+/* === ФУНКЦИЯ ОТРИСОВКИ ВСЕХ ВЕКТОРНЫХ СТИКЕРОВ === */
 function drawShapeSticker(ctx, shape) {
   const w = 100, h = 60;
   ctx.save();
@@ -684,254 +306,347 @@ function drawShapeSticker(ctx, shape) {
   ctx.fillStyle = '#e0a85a';
   
   switch(shape) {
+    // --- СТРЕЛКИ ---
     case 'arrow':
-      ctx.beginPath();
-      ctx.moveTo(-w/2, 0);
-      ctx.lineTo(w/2 - 10, 0);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(w/2 - 15, -12);
-      ctx.lineTo(w/2, 0);
-      ctx.lineTo(w/2 - 15, 12);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2 - 15, -12);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 12);ctx.stroke();
       break;
     case 'arrow-left':
-      ctx.beginPath();
-      ctx.moveTo(w/2, 0);
-      ctx.lineTo(-w/2 + 10, 0);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(-w/2 + 15, -12);
-      ctx.lineTo(-w/2, 0);
-      ctx.lineTo(-w/2 + 15, 12);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2, 0);ctx.lineTo(-w/2 + 10, 0);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2 + 15, -12);ctx.lineTo(-w/2, 0);ctx.lineTo(-w/2 + 15, 12);ctx.stroke();
       break;
     case 'arrow-dashed':
       ctx.setLineDash([10, 8]);
-      ctx.beginPath();
-      ctx.moveTo(-w/2, 0);
-      ctx.lineTo(w/2 - 10, 0);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
       ctx.setLineDash([]);
-      ctx.beginPath();
-      ctx.moveTo(w/2 - 15, -12);
-      ctx.lineTo(w/2, 0);
-      ctx.lineTo(w/2 - 15, 12);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2 - 15, -12);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 12);ctx.stroke();
       break;
     case 'arrow-dashed-left':
       ctx.setLineDash([10, 8]);
-      ctx.beginPath();
-      ctx.moveTo(w/2, 0);
-      ctx.lineTo(-w/2 + 10, 0);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2, 0);ctx.lineTo(-w/2 + 10, 0);ctx.stroke();
       ctx.setLineDash([]);
-      ctx.beginPath();
-      ctx.moveTo(-w/2 + 15, -12);
-      ctx.lineTo(-w/2, 0);
-      ctx.lineTo(-w/2 + 15, 12);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2 + 15, -12);ctx.lineTo(-w/2, 0);ctx.lineTo(-w/2 + 15, 12);ctx.stroke();
       break;
     case 'arrow-up':
-      ctx.beginPath();
-      ctx.moveTo(0, h/2);
-      ctx.lineTo(0, -h/2 + 10);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(-12, -h/2 + 15);
-      ctx.lineTo(0, -h/2);
-      ctx.lineTo(12, -h/2 + 15);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(0, h/2);ctx.lineTo(0, -h/2 + 10);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-12, -h/2 + 15);ctx.lineTo(0, -h/2);ctx.lineTo(12, -h/2 + 15);ctx.stroke();
       break;
     case 'arrow-double':
-      ctx.beginPath();
-      ctx.moveTo(-w/2 + 10, 0);
-      ctx.lineTo(w/2 - 10, 0);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(w/2 - 15, -12);
-      ctx.lineTo(w/2, 0);
-      ctx.lineTo(w/2 - 15, 12);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(-w/2 + 15, -12);
-      ctx.lineTo(-w/2, 0);
-      ctx.lineTo(-w/2 + 15, 12);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2 + 10, 0);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2 - 15, -12);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 12);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2 + 15, -12);ctx.lineTo(-w/2, 0);ctx.lineTo(-w/2 + 15, 12);ctx.stroke();
       break;
     case 'arrow-diag':
-      ctx.beginPath();
-      ctx.moveTo(w/2, -h/2);
-      ctx.lineTo(-w/2, h/2);
-      ctx.stroke();
-      ctx.beginPath();
-      ctx.moveTo(-w/2 + 15, h/2);
-      ctx.lineTo(-w/2, h/2);
-      ctx.lineTo(-w/2, h/2 - 15);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2, -h/2);ctx.lineTo(-w/2, h/2);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2 + 15, h/2);ctx.lineTo(-w/2, h/2);ctx.lineTo(-w/2, h/2 - 15);ctx.stroke();
       break;
+    case 'arrow-curved':
+      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.quadraticCurveTo(0, -30, w/2 - 10, 0);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2 - 18, -10);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 18, 10);ctx.stroke();
+      break;
+    case 'arrow-loop':
+      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.bezierCurveTo(-20, -40, 20, 40, w/2 - 10, 0);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2 - 15, -10);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 10);ctx.stroke();
+      break;
+    case 'arrow-zigzag':
+      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(-w/4, -15);ctx.lineTo(0, 0);ctx.lineTo(w/4, -15);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2 - 15, -10);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 10);ctx.stroke();
+      break;
+    case 'arrow-triple':
+      ctx.beginPath();ctx.moveTo(-w/2, -10);ctx.lineTo(w/2 - 10, -10);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(w/2 - 10, 0);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2, 10);ctx.lineTo(w/2 - 10, 10);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(w/2 - 15, -18);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 15, 18);ctx.stroke();
+      break;
+    case 'arrow-bold':
+      ctx.lineWidth = 12;ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.lineTo(w/2 - 15, 0);ctx.stroke();
+      ctx.lineWidth = 5;ctx.beginPath();ctx.moveTo(w/2 - 20, -18);ctx.lineTo(w/2, 0);ctx.lineTo(w/2 - 20, 18);ctx.stroke();
+      break;
+    // --- МАЗКИ ---
     case 'brush':
-      ctx.lineWidth = 14;
-      ctx.beginPath();
-      ctx.moveTo(-w/2, 5);
-      ctx.bezierCurveTo(-w/4, -15, w/4, 15, w/2, -5);
-      ctx.stroke();
+      ctx.lineWidth = 14;ctx.beginPath();ctx.moveTo(-w/2, 5);ctx.bezierCurveTo(-w/4, -15, w/4, 15, w/2, -5);ctx.stroke();
       break;
     case 'brush-2':
-      ctx.lineWidth = 10;
-      ctx.beginPath();
-      ctx.moveTo(-w/2, -5);
-      ctx.bezierCurveTo(-w/4, 15, 0, -10, w/2, 8);
-      ctx.stroke();
+      ctx.lineWidth = 10;ctx.beginPath();ctx.moveTo(-w/2, -5);ctx.bezierCurveTo(-w/4, 15, 0, -10, w/2, 8);ctx.stroke();
+      break;
+    case 'brush-double':
+      ctx.lineWidth = 8;
+      ctx.beginPath();ctx.moveTo(-w/2, -8);ctx.bezierCurveTo(-w/4, -20, w/4, 8, w/2, -5);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2, 8);ctx.bezierCurveTo(-w/4, -4, w/4, 20, w/2, 10);ctx.stroke();
       break;
     case 'underline':
-      ctx.lineWidth = 6;
-      ctx.beginPath();
-      ctx.moveTo(-w/2, 0);
-      ctx.quadraticCurveTo(0, 8, w/2, 0);
-      ctx.stroke();
+      ctx.lineWidth = 6;ctx.beginPath();ctx.moveTo(-w/2, 0);ctx.quadraticCurveTo(0, 8, w/2, 0);ctx.stroke();
+      break;
+    case 'underline-double':
+      ctx.lineWidth = 5;
+      ctx.beginPath();ctx.moveTo(-w/2, -4);ctx.quadraticCurveTo(0, 4, w/2, -4);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-w/2, 8);ctx.quadraticCurveTo(0, 16, w/2, 8);ctx.stroke();
       break;
     case 'wave':
-      ctx.lineWidth = 5;
-      ctx.beginPath();
-      ctx.moveTo(-w/2, 0);
-      for(let i=0;i<6;i++){
-        const x = -w/2 + i*(w/5);
-        const y = (i%2===0? -10 : 10);
-        ctx.quadraticCurveTo(x + w/10, y, x + w/5, 0);
-      }
+      ctx.lineWidth = 5;ctx.beginPath();ctx.moveTo(-w/2, 0);
+      for(let i=0;i<6;i++){const x=-w/2+i*(w/5);const y=(i%2===0?-10:10);ctx.quadraticCurveTo(x+w/10, y, x+w/5, 0);}
       ctx.stroke();
       break;
+    case 'wave-dashed':
+      ctx.lineWidth = 4;ctx.setLineDash([6, 6]);
+      ctx.beginPath();ctx.moveTo(-w/2, 0);
+      for(let i=0;i<6;i++){const x=-w/2+i*(w/5);const y=(i%2===0?-10:10);ctx.quadraticCurveTo(x+w/10, y, x+w/5, 0);}
+      ctx.stroke();ctx.setLineDash([]);
+      break;
+    // --- ОКОНЧАНИЯ ---
     case 'circle':
-      ctx.lineWidth = 5;
-      ctx.beginPath();
-      ctx.arc(0, 0, w/2 - 10, 0, Math.PI*2);
-      ctx.stroke();
+      ctx.lineWidth = 5;ctx.beginPath();ctx.arc(0, 0, w/2 - 10, 0, Math.PI*2);ctx.stroke();
       break;
     case 'circle-dashed':
-      ctx.lineWidth = 4;
-      ctx.setLineDash([8, 8]);
-      ctx.beginPath();
-      ctx.arc(0, 0, w/2 - 10, 0, Math.PI*2);
-      ctx.stroke();
-      ctx.setLineDash([]);
+      ctx.lineWidth = 4;ctx.setLineDash([8, 8]);ctx.beginPath();ctx.arc(0, 0, w/2 - 10, 0, Math.PI*2);ctx.stroke();ctx.setLineDash([]);
+      break;
+    case 'circle-dot':
+      ctx.lineWidth = 4;ctx.beginPath();ctx.arc(0, 0, w/2 - 10, 0, Math.PI*2);ctx.stroke();
+      ctx.beginPath();ctx.arc(0, 0, 5, 0, Math.PI*2);ctx.fill();
       break;
     case 'heart':
-      ctx.beginPath();
-      ctx.moveTo(0, 15);
-      ctx.bezierCurveTo(-30, -10, -30, -25, -15, -20);
-      ctx.bezierCurveTo(-5, -18, 0, -8, 0, -3);
-      ctx.bezierCurveTo(0, -8, 5, -18, 15, -20);
-      ctx.bezierCurveTo(30, -25, 30, -10, 0, 15);
-      ctx.fill();
+      ctx.beginPath();ctx.moveTo(0, 15);ctx.bezierCurveTo(-30, -10, -30, -25, -15, -20);ctx.bezierCurveTo(-5, -18, 0, -8, 0, -3);ctx.bezierCurveTo(0, -8, 5, -18, 15, -20);ctx.bezierCurveTo(30, -25, 30, -10, 0, 15);ctx.fill();
+      break;
+    case 'heart-outline':
+      ctx.lineWidth = 4;ctx.beginPath();ctx.moveTo(0, 15);ctx.bezierCurveTo(-30, -10, -30, -25, -15, -20);ctx.bezierCurveTo(-5, -18, 0, -8, 0, -3);ctx.bezierCurveTo(0, -8, 5, -18, 15, -20);ctx.bezierCurveTo(30, -25, 30, -10, 0, 15);ctx.stroke();
       break;
     case 'star':
       ctx.beginPath();
-      for(let i=0;i<5;i++){
-        const a = -Math.PI/2 + i*2*Math.PI/5;
-        const ax = Math.cos(a)*25, ay = Math.sin(a)*25;
-        if(i===0) ctx.moveTo(ax, ay);
-        else ctx.lineTo(ax, ay);
-        const a2 = a + Math.PI/5;
-        ctx.lineTo(Math.cos(a2)*10, Math.sin(a2)*10);
-      }
-      ctx.closePath();
+      for(let i=0;i<5;i++){const a=-Math.PI/2+i*2*Math.PI/5;const ax=Math.cos(a)*25,ay=Math.sin(a)*25;if(i===0)ctx.moveTo(ax,ay);else ctx.lineTo(ax,ay);const a2=a+Math.PI/5;ctx.lineTo(Math.cos(a2)*10,Math.sin(a2)*10);}
+      ctx.closePath();ctx.fill();
+      break;
+    case 'sparkle':
+      ctx.beginPath();
+      ctx.moveTo(0, -25);
+      ctx.quadraticCurveTo(3, -5, 25, 0);
+      ctx.quadraticCurveTo(3, 5, 0, 25);
+      ctx.quadraticCurveTo(-3, 5, -25, 0);
+      ctx.quadraticCurveTo(-3, -5, 0, -25);
       ctx.fill();
       break;
-    case 'paren-l':
-      ctx.lineWidth = 5;
+    case 'bolt':
       ctx.beginPath();
-      ctx.arc(w/4, 0, 28, Math.PI*0.7, Math.PI*1.3);
-      ctx.stroke();
+      ctx.moveTo(5, -25);ctx.lineTo(-15, 5);ctx.lineTo(0, 5);ctx.lineTo(-5, 25);ctx.lineTo(15, -5);ctx.lineTo(0, -5);ctx.closePath();
+      ctx.fill();
+      break;
+    case 'moon':
+      ctx.beginPath();ctx.arc(0, 0, 20, Math.PI*0.3, Math.PI*1.7);ctx.arc(8, 0, 15, Math.PI*1.6, Math.PI*0.4, true);ctx.fill();
+      break;
+    case 'drop':
+      ctx.beginPath();ctx.moveTo(0, -22);ctx.bezierCurveTo(-15, -5, -15, 10, 0, 22);ctx.bezierCurveTo(15, 10, 15, -5, 0, -22);ctx.fill();
+      break;
+    // --- СКОБКИ ---
+    case 'paren-l':
+      ctx.lineWidth = 5;ctx.beginPath();ctx.arc(w/4, 0, 28, Math.PI*0.7, Math.PI*1.3);ctx.stroke();
       break;
     case 'paren-r':
-      ctx.lineWidth = 5;
-      ctx.beginPath();
-      ctx.arc(-w/4, 0, 28, -Math.PI*0.3, Math.PI*0.3);
-      ctx.stroke();
+      ctx.lineWidth = 5;ctx.beginPath();ctx.arc(-w/4, 0, 28, -Math.PI*0.3, Math.PI*0.3);ctx.stroke();
       break;
+    case 'bracket-l':
+      ctx.lineWidth = 5;ctx.beginPath();ctx.moveTo(w/4, -25);ctx.lineTo(-w/6, -25);ctx.lineTo(-w/6, 25);ctx.lineTo(w/4, 25);ctx.stroke();
+      break;
+    case 'bracket-r':
+      ctx.lineWidth = 5;ctx.beginPath();ctx.moveTo(-w/4, -25);ctx.lineTo(w/6, -25);ctx.lineTo(w/6, 25);ctx.lineTo(-w/4, 25);ctx.stroke();
+      break;
+    case 'square-frame':
+      ctx.lineWidth = 4;ctx.strokeRect(-w/2 + 5, -h/2 + 2, w - 10, h - 4);
+      break;
+    // --- ЗНАЧКИ ---
     case 'check':
-      ctx.beginPath();
-      ctx.moveTo(-25, 0);
-      ctx.lineTo(-8, 15);
-      ctx.lineTo(28, -18);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-25, 0);ctx.lineTo(-8, 15);ctx.lineTo(28, -18);ctx.stroke();
+      break;
+    case 'check-circle':
+      ctx.lineWidth = 4;ctx.beginPath();ctx.arc(0, 0, 25, 0, Math.PI*2);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-14, 0);ctx.lineTo(-4, 10);ctx.lineTo(15, -10);ctx.stroke();
       break;
     case 'cross':
-      ctx.beginPath();
-      ctx.moveTo(-15, -15);
-      ctx.lineTo(15, 15);
-      ctx.moveTo(15, -15);
-      ctx.lineTo(-15, 15);
-      ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-15, -15);ctx.lineTo(15, 15);ctx.moveTo(15, -15);ctx.lineTo(-15, 15);ctx.stroke();
+      break;
+    case 'cross-circle':
+      ctx.lineWidth = 4;ctx.beginPath();ctx.arc(0, 0, 25, 0, Math.PI*2);ctx.stroke();
+      ctx.beginPath();ctx.moveTo(-8, -8);ctx.lineTo(8, 8);ctx.moveTo(8, -8);ctx.lineTo(-8, 8);ctx.stroke();
       break;
     case 'plus':
-      ctx.beginPath();
-      ctx.moveTo(-15, 0);
-      ctx.lineTo(15, 0);
-      ctx.moveTo(0, -15);
-      ctx.lineTo(0, 15);
+      ctx.beginPath();ctx.moveTo(-15, 0);ctx.lineTo(15, 0);ctx.moveTo(0, -15);ctx.lineTo(0, 15);ctx.stroke();
+      break;
+    case 'exclaim':
+      ctx.lineWidth = 6;
+      ctx.beginPath();ctx.moveTo(0, -20);ctx.lineTo(0, 8);ctx.stroke();
+      ctx.beginPath();ctx.arc(0, 18, 3, 0, Math.PI*2);ctx.fill();
+      break;
+    case 'question':
+      ctx.lineWidth = 4;
+      ctx.beginPath();ctx.arc(0, -12, 10, Math.PI, 0, false);ctx.lineTo(0, 5);ctx.stroke();
+      ctx.beginPath();ctx.arc(0, 18, 3, 0, Math.PI*2);ctx.fill();
+      break;
+    // --- ГЕОМЕТРИЯ ---
+    case 'triangle':
+      ctx.lineWidth = 5;ctx.beginPath();ctx.moveTo(0, -22);ctx.lineTo(22, 18);ctx.lineTo(-22, 18);ctx.closePath();ctx.stroke();
+      break;
+    case 'diamond':
+      ctx.lineWidth = 5;ctx.beginPath();ctx.moveTo(0, -25);ctx.lineTo(20, 0);ctx.lineTo(0, 25);ctx.lineTo(-20, 0);ctx.closePath();ctx.stroke();
+      break;
+    case 'hexagon':
+      ctx.lineWidth = 5;ctx.beginPath();
+      for(let i=0;i<6;i++){const a=i*Math.PI/3;const x=Math.cos(a)*22,y=Math.sin(a)*22;if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
+      ctx.closePath();ctx.stroke();
+      break;
+    case 'spiral':
+      ctx.lineWidth = 4;ctx.beginPath();
+      for(let t=0;t<Math.PI*6;t+=0.2){const r=2+t*1.4;const x=Math.cos(t)*r,y=Math.sin(t)*r;if(t===0)ctx.moveTo(x,y);else ctx.lineTo(x,y);}
       ctx.stroke();
+      break;
+    // --- ДЕКОР ---
+    case 'bow':
+      ctx.lineWidth = 4;
+      ctx.beginPath();ctx.moveTo(0, 0);ctx.bezierCurveTo(-20, -18, -35, 0, 0, 5);ctx.bezierCurveTo(35, 0, 20, -18, 0, 0);ctx.fill();
+      ctx.beginPath();ctx.arc(0, 0, 4, 0, Math.PI*2);ctx.stroke();
+      break;
+    case 'flower':
+      for(let i=0;i<6;i++){const a=i*Math.PI/3;const x=Math.cos(a)*14,y=Math.sin(a)*14;ctx.beginPath();ctx.arc(x,y,8,0,Math.PI*2);ctx.fill();}
+      ctx.fillStyle='#2a1810';ctx.beginPath();ctx.arc(0,0,6,0,Math.PI*2);ctx.fill();ctx.fillStyle='#e0a85a';
+      break;
+    case 'sparkles':
+      ctx.beginPath();ctx.moveTo(-20, -10);ctx.quadraticCurveTo(-17, 0, -10, 3);ctx.quadraticCurveTo(-17, 6, -20, 15);ctx.quadraticCurveTo(-23, 6, -30, 3);ctx.quadraticCurveTo(-23, 0, -20, -10);ctx.fill();
+      ctx.beginPath();ctx.moveTo(15, -20);ctx.quadraticCurveTo(17, -12, 25, -10);ctx.quadraticCurveTo(17, -8, 15, 0);ctx.quadraticCurveTo(13, -8, 5, -10);ctx.quadraticCurveTo(13, -12, 15, -20);ctx.fill();
+      ctx.beginPath();ctx.arc(20, 12, 3, 0, Math.PI*2);ctx.fill();
+      break;
+    case 'splat':
+      ctx.beginPath();ctx.arc(0, 0, 18, 0, Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(-20, -15, 4, 0, Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(22, -12, 5, 0, Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(-18, 15, 3, 0, Math.PI*2);ctx.fill();
+      ctx.beginPath();ctx.arc(20, 18, 4, 0, Math.PI*2);ctx.fill();
+      break;
+    case 'corners':
+      ctx.lineWidth = 5;
+      // Верхний левый
+      ctx.beginPath();ctx.moveTo(-w/2, -h/2 + 15);ctx.lineTo(-w/2, -h/2);ctx.lineTo(-w/2 + 15, -h/2);ctx.stroke();
+      // Верхний правый
+      ctx.beginPath();ctx.moveTo(w/2 - 15, -h/2);ctx.lineTo(w/2, -h/2);ctx.lineTo(w/2, -h/2 + 15);ctx.stroke();
+      // Нижний левый
+      ctx.beginPath();ctx.moveTo(-w/2, h/2 - 15);ctx.lineTo(-w/2, h/2);ctx.lineTo(-w/2 + 15, h/2);ctx.stroke();
+      // Нижний правый
+      ctx.beginPath();ctx.moveTo(w/2 - 15, h/2);ctx.lineTo(w/2, h/2);ctx.lineTo(w/2, h/2 - 15);ctx.stroke();
       break;
   }
   ctx.restore();
 }
 
-/* Прямоугольник (bounding box) для векторного стикера */
-function shapeBounds() {
-  return { w: 100, h: 60 };
-}
+/* Превью для панели (SVG) */
+const svgPreviews = {
+  'arrow':'M5 20 L50 20 M40 12 L50 20 L40 28',
+  'arrow-left':'M55 20 L10 20 M20 12 L10 20 L20 28',
+  'arrow-dashed':'M5 20 L45 20 M40 12 L50 20 L40 28',
+  'arrow-dashed-left':'M55 20 L15 20 M20 12 L10 20 L20 28',
+  'arrow-up':'M30 35 L30 5 M22 15 L30 5 L38 15',
+  'arrow-double':'M10 20 L50 20 M45 12 L55 20 L45 28 M15 12 L5 20 L15 28',
+  'arrow-diag':'M50 5 L10 35 M20 35 L10 35 L10 25',
+  'arrow-curved':'M5 20 Q30 5 50 20 M42 12 L50 20 L42 28',
+  'arrow-loop':'M5 20 Q10 0 30 20 Q50 40 50 20 M42 12 L50 20 L42 28',
+  'arrow-zigzag':'M5 20 L15 12 L25 20 L35 12 L45 20 M40 14 L50 20 L40 26',
+  'arrow-triple':'M5 15 L45 15 M5 20 L45 20 M5 25 L45 25 M40 10 L50 20 L40 30',
+  'arrow-bold':'M5 20 L45 20 M38 10 L50 20 L38 30',
+  'brush':'M5 22 Q20 5 30 20 Q40 35 55 18',
+  'brush-2':'M5 15 Q20 30 30 15 Q40 0 55 25',
+  'brush-double':'M5 12 Q30 0 55 15 M5 28 Q30 40 55 25',
+  'underline':'M5 20 Q30 30 55 20',
+  'underline-double':'M5 16 Q30 24 55 16 M5 24 Q30 32 55 24',
+  'wave':'M5 20 Q12 10 20 20 Q28 30 35 20 Q42 10 50 20',
+  'wave-dashed':'M5 20 Q12 10 20 20 Q28 30 35 20 Q42 10 50 20',
+  'circle':'M30 5 A15 15 0 1 1 29 5',
+  'circle-dashed':'M30 5 A15 15 0 1 1 29 5',
+  'circle-dot':'M30 5 A15 15 0 1 1 29 5 M30 20 m-1 0 a1 1 0 1 0 2 0 a1 1 0 1 0 -2 0',
+  'heart':'M30 30 C10 15 15 5 22 5 C27 5 30 10 30 12 C30 10 33 5 38 5 C45 5 50 15 30 30',
+  'heart-outline':'M30 30 C10 15 15 5 22 5 C27 5 30 10 30 12 C30 10 33 5 38 5 C45 5 50 15 30 30',
+  'star':'M30 5 L35 18 L48 20 L38 28 L42 38 L30 32 L18 38 L22 28 L12 20 L25 18 Z',
+  'sparkle':'M30 8 Q31 19 42 20 Q31 21 30 32 Q29 21 18 20 Q29 19 30 8',
+  'bolt':'M32 5 L20 25 L28 25 L26 35 L38 15 L30 15 Z',
+  'moon':'M22 10 A14 14 0 1 0 38 30 A11 11 0 1 1 22 10 Z',
+  'drop':'M30 8 Q22 22 22 28 A8 8 0 0 0 38 28 Q38 22 30 8 Z',
+  'paren-l':'M40 5 Q10 20 40 35',
+  'paren-r':'M20 5 Q50 20 20 35',
+  'bracket-l':'M38 5 L20 5 L20 35 L38 35',
+  'bracket-r':'M22 5 L40 5 L40 35 L22 35',
+  'square-frame':'M8 8 L52 8 L52 32 L8 32 Z',
+  'check':'M10 20 L25 32 L50 8',
+  'check-circle':'M30 5 A15 15 0 1 1 29 5 M22 20 L28 26 L40 14',
+  'cross':'M15 10 L45 30 M45 10 L15 30',
+  'cross-circle':'M30 5 A15 15 0 1 1 29 5 M23 13 L37 27 M37 13 L23 27',
+  'plus':'M10 20 L50 20 M30 5 L30 35',
+  'exclaim':'M30 8 L30 24 M30 30 L30 32',
+  'question':'M22 14 A8 8 0 1 1 30 22 L30 26 M30 32 L30 33',
+  'triangle':'M30 8 L48 32 L12 32 Z',
+  'diamond':'M30 5 L50 20 L30 35 L10 20 Z',
+  'hexagon':'M30 5 L46 14 L46 28 L30 37 L14 28 L14 14 Z',
+  'spiral':'M30 20 Q30 14 25 14 Q18 14 18 22 Q18 32 30 32 Q42 32 42 20 Q42 8 30 8',
+  'bow':'M30 20 Q15 10 15 20 Q15 28 30 22 Q45 28 45 20 Q45 10 30 20',
+  'flower':'M30 20 m-5 0 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0 M30 10 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M30 30 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M20 20 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M40 20 m-4 0 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0',
+  'sparkles':'M15 15 Q16 20 22 22 Q16 24 15 30 Q14 24 8 22 Q14 20 15 15 M42 10 Q43 15 48 16 Q43 17 42 22 Q41 17 36 16 Q41 15 42 10 M45 32 m-2 0 a2 2 0 1 0 4 0 a2 2 0 1 0 -4 0',
+  'splat':'M30 20 m-10 0 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0 M15 12 m-3 0 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0 M45 30 m-3 0 a3 3 0 1 0 6 0 a3 3 0 1 0 -6 0',
+  'corners':'M5 20 L5 8 L17 8 M43 8 L55 8 L55 20 M5 30 L5 42 L17 42 M43 42 L55 42 L55 30'
+};
 
-function draw(){ctx.clearRect(0,0,cv.width,cv.height);if(photo){ctx.save();const exp=Math.pow(2,adjust.exposure/100);const bright=Math.max(0,100+adjust.brightness)*exp;const contrast=Math.max(0,100+adjust.contrast);const sat=Math.max(0,100+adjust.saturation);const ef=effects[activeEffect]||effects.original;const strength=Math.max(0,Math.min(200,effectStrength))/100;const adjustmentFilter=`brightness(${bright}%) contrast(${contrast}%) saturate(${sat}%) blur(${Math.max(0,adjust.blur)}px)`;
-ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter=adjustmentFilter;ctx.drawImage(photo,0,0,cv.width,cv.height);
-if(activeEffect!=='original'&&strength>0){ctx.globalAlpha=Math.min(1,strength);ctx.filter=`${adjustmentFilter} ${ef.filter==='none'?'':ef.filter}`.trim();ctx.drawImage(photo,0,0,cv.width,cv.height);ctx.globalAlpha=1;ctx.filter='none';}if(activeEffect==='twilight'&&strength>0){
-ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.28*strength;const shadows=ctx.createLinearGradient(0,0,cv.width,cv.height);shadows.addColorStop(0,'#183d65');shadows.addColorStop(.48,'#28556b');shadows.addColorStop(1,'#101f42');ctx.fillStyle=shadows;ctx.fillRect(0,0,cv.width,cv.height);
-ctx.globalCompositeOperation='soft-light';ctx.globalAlpha=.78*strength;const blueGrade=ctx.createLinearGradient(0,0,cv.width*.9,cv.height);blueGrade.addColorStop(0,'#3f83a0');blueGrade.addColorStop(.42,'#6f9ba4');blueGrade.addColorStop(.72,'#284f73');blueGrade.addColorStop(1,'#182b52');ctx.fillStyle=blueGrade;ctx.fillRect(0,0,cv.width,cv.height);
-ctx.globalCompositeOperation='screen';ctx.globalAlpha=.22*strength;const silver=ctx.createRadialGradient(cv.width*.52,cv.height*.28,0,cv.width*.52,cv.height*.28,Math.max(cv.width,cv.height)*.72);silver.addColorStop(0,'rgba(210,232,235,.88)');silver.addColorStop(.42,'rgba(120,174,192,.25)');silver.addColorStop(1,'rgba(120,174,192,0)');ctx.fillStyle=silver;ctx.fillRect(0,0,cv.width,cv.height);
-ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.32*strength;const vignette=ctx.createRadialGradient(cv.width*.5,cv.height*.43,Math.min(cv.width,cv.height)*.2,cv.width*.5,cv.height*.5,Math.max(cv.width,cv.height)*.76);vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(1,'rgba(3,14,35,.96)');ctx.fillStyle=vignette;ctx.fillRect(0,0,cv.width,cv.height);
-}else if(ef.tint&&strength>0){ctx.globalCompositeOperation='soft-light';ctx.globalAlpha=(['rose','cherry','pinkfilm','sunset','emerald','berrypop','goldenhour','icyblue','terracotta','moody','vivid'].includes(activeEffect)?.27:.13)*strength;ctx.fillStyle=ef.tint;ctx.fillRect(0,0,cv.width,cv.height)}ctx.restore()}else{ctx.fillStyle='#1a1a22';ctx.fillRect(0,0,cv.width,cv.height)}
-objects.forEach((o,i)=>{
-  if(o.hidden)return;
-  ctx.save();
-  ctx.globalAlpha=o.opacity/100;
-  ctx.translate(o.x,o.y);
-  ctx.rotate(o.rotation*Math.PI/180);
-  ctx.scale(o.scale,o.scale);
-  
-  if(o.type==='text'){
-    ctx.font=`${o.italic?'italic ':''}${o.bold?'700':'400'} ${o.size}px "${fontForText(o)}"`;
-    ctx.textAlign='center';ctx.textBaseline='middle';
-    const t=o.upper?o.text.toUpperCase():o.text;
-    if(o.shadowEnabled&&o.shadowIntensity>0){ctx.shadowColor=`rgba(45,20,32,${Math.min(1,o.shadowIntensity/100)})`;ctx.shadowBlur=Math.max(0,o.shadowIntensity)*.28;ctx.shadowOffsetX=Math.max(1,o.shadowIntensity*.06);ctx.shadowOffsetY=Math.max(1,o.shadowIntensity*.08)}
-    if(o.strokeWidth>0){ctx.lineJoin='round';ctx.lineWidth=o.strokeWidth*2;ctx.strokeStyle=o.strokeColor||'#171717';ctx.strokeText(t,0,0)}
-    ctx.fillStyle=o.color;ctx.fillText(t,0,0);
-  } else if(o.type==='image'){
-    ctx.drawImage(o.img,-o.w/2,-o.h/2,o.w,o.h);
-  } else if(o.type==='shape'){
-    // масштаб для shape — через scale
-    drawShapeSticker(ctx, o.shape);
-  }
-  
-  ctx.restore();
-  if(i===selected){
+function draw(){
+  ctx.clearRect(0,0,cv.width,cv.height);
+  if(photo){
     ctx.save();
-    ctx.translate(o.x,o.y);
-    ctx.rotate(o.rotation*Math.PI/180);
-    const b=getBounds(o);
-    ctx.strokeStyle='#e0a85a';ctx.lineWidth=2;ctx.setLineDash([5,5]);
-    ctx.strokeRect(-b.w/2-10,-b.h/2-10,b.w+20,b.h+20);
-    ctx.setLineDash([]);
-    // Кнопка удаления
-    if(o.sticker||o.type==='image'||o.type==='shape'){
-      const hx=b.w/2+10,hy=-b.h/2-10;
-      ctx.beginPath();ctx.arc(hx,hy,15,0,Math.PI*2);
-      ctx.fillStyle='#e0a85a';ctx.fill();
-      ctx.strokeStyle='#fff';ctx.lineWidth=2.5;
-      ctx.beginPath();ctx.moveTo(hx-5,hy-5);ctx.lineTo(hx+5,hy+5);ctx.moveTo(hx+5,hy-5);ctx.lineTo(hx-5,hy+5);ctx.stroke();
+    const exp=Math.pow(2,adjust.exposure/100);const bright=Math.max(0,100+adjust.brightness)*exp;
+    const contrast=Math.max(0,100+adjust.contrast);const sat=Math.max(0,100+adjust.saturation);
+    const ef=effects[activeEffect]||effects.original;const strength=Math.max(0,Math.min(200,effectStrength))/100;
+    const adjustmentFilter=`brightness(${bright}%) contrast(${contrast}%) saturate(${sat}%) blur(${Math.max(0,adjust.blur)}px)`;
+    ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';ctx.filter=adjustmentFilter;ctx.drawImage(photo,0,0,cv.width,cv.height);
+    if(activeEffect!=='original'&&strength>0){ctx.globalAlpha=Math.min(1,strength);ctx.filter=`${adjustmentFilter} ${ef.filter==='none'?'':ef.filter}`.trim();ctx.drawImage(photo,0,0,cv.width,cv.height);ctx.globalAlpha=1;ctx.filter='none';}
+    if(activeEffect==='twilight'&&strength>0){
+      ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.28*strength;const shadows=ctx.createLinearGradient(0,0,cv.width,cv.height);shadows.addColorStop(0,'#183d65');shadows.addColorStop(.48,'#28556b');shadows.addColorStop(1,'#101f42');ctx.fillStyle=shadows;ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.globalCompositeOperation='soft-light';ctx.globalAlpha=.78*strength;const blueGrade=ctx.createLinearGradient(0,0,cv.width*.9,cv.height);blueGrade.addColorStop(0,'#3f83a0');blueGrade.addColorStop(.42,'#6f9ba4');blueGrade.addColorStop(.72,'#284f73');blueGrade.addColorStop(1,'#182b52');ctx.fillStyle=blueGrade;ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.globalCompositeOperation='screen';ctx.globalAlpha=.22*strength;const silver=ctx.createRadialGradient(cv.width*.52,cv.height*.28,0,cv.width*.52,cv.height*.28,Math.max(cv.width,cv.height)*.72);silver.addColorStop(0,'rgba(210,232,235,.88)');silver.addColorStop(.42,'rgba(120,174,192,.25)');silver.addColorStop(1,'rgba(120,174,192,0)');ctx.fillStyle=silver;ctx.fillRect(0,0,cv.width,cv.height);
+      ctx.globalCompositeOperation='multiply';ctx.globalAlpha=.32*strength;const vignette=ctx.createRadialGradient(cv.width*.5,cv.height*.43,Math.min(cv.width,cv.height)*.2,cv.width*.5,cv.height*.5,Math.max(cv.width,cv.height)*.76);vignette.addColorStop(0,'rgba(0,0,0,0)');vignette.addColorStop(1,'rgba(3,14,35,.96)');ctx.fillStyle=vignette;ctx.fillRect(0,0,cv.width,cv.height);
+    } else if(ef.tint&&strength>0){
+      ctx.globalCompositeOperation='soft-light';ctx.globalAlpha=(['rose','cherry','pinkfilm','sunset','emerald','berrypop','goldenhour','icyblue','terracotta','moody','vivid'].includes(activeEffect)?.27:.13)*strength;ctx.fillStyle=ef.tint;ctx.fillRect(0,0,cv.width,cv.height)
     }
     ctx.restore();
+  } else {
+    ctx.fillStyle='#1a1a22';ctx.fillRect(0,0,cv.width,cv.height);
   }
-});}
+  
+  objects.forEach((o,i)=>{
+    if(o.hidden)return;
+    ctx.save();
+    ctx.globalAlpha=o.opacity/100;
+    ctx.translate(o.x,o.y);
+    ctx.rotate(o.rotation*Math.PI/180);
+    ctx.scale(o.scale,o.scale);
+    if(o.type==='text'){
+      ctx.font=`${o.italic?'italic ':''}${o.bold?'700':'400'} ${o.size}px "${fontForText(o)}"`;
+      ctx.textAlign='center';ctx.textBaseline='middle';
+      const t=o.upper?o.text.toUpperCase():o.text;
+      if(o.shadowEnabled&&o.shadowIntensity>0){ctx.shadowColor=`rgba(45,20,32,${Math.min(1,o.shadowIntensity/100)})`;ctx.shadowBlur=Math.max(0,o.shadowIntensity)*.28;ctx.shadowOffsetX=Math.max(1,o.shadowIntensity*.06);ctx.shadowOffsetY=Math.max(1,o.shadowIntensity*.08)}
+      if(o.strokeWidth>0){ctx.lineJoin='round';ctx.lineWidth=o.strokeWidth*2;ctx.strokeStyle=o.strokeColor||'#171717';ctx.strokeText(t,0,0)}
+      ctx.fillStyle=o.color;ctx.fillText(t,0,0);
+    } else if(o.type==='image'){
+      ctx.drawImage(o.img,-o.w/2,-o.h/2,o.w,o.h);
+    } else if(o.type==='shape'){
+      drawShapeSticker(ctx, o.shape);
+    }
+    ctx.restore();
+    if(i===selected){
+      ctx.save();ctx.translate(o.x,o.y);ctx.rotate(o.rotation*Math.PI/180);
+      const b=getBounds(o);
+      ctx.strokeStyle='#e0a85a';ctx.lineWidth=2;ctx.setLineDash([5,5]);
+      ctx.strokeRect(-b.w/2-10,-b.h/2-10,b.w+20,b.h+20);
+      ctx.setLineDash([]);
+      if(o.sticker||o.type==='image'||o.type==='shape'){
+        const hx=b.w/2+10,hy=-b.h/2-10;
+        ctx.beginPath();ctx.arc(hx,hy,15,0,Math.PI*2);
+        ctx.fillStyle='#e0a85a';ctx.fill();
+        ctx.strokeStyle='#fff';ctx.lineWidth=2.5;
+        ctx.beginPath();ctx.moveTo(hx-5,hy-5);ctx.lineTo(hx+5,hy+5);ctx.moveTo(hx+5,hy-5);ctx.lineTo(hx-5,hy+5);ctx.stroke();
+      }
+      ctx.restore();
+    }
+  });
+}
 
 function getBounds(o){
   if(o.type==='text'){
@@ -946,7 +661,34 @@ function getBounds(o){
   return{w:o.w*o.scale,h:o.h*o.scale};
 }
 
-function render(){draw();const hasPhoto=!!photo;$('emptyState').classList.toggle('hidden',hasPhoto);cv.classList.toggle('hidden',!hasPhoto);$('addTextFloatingBtn').classList.toggle('hidden',!hasPhoto);const sel=objects[selected];if(sel&&sel.type==='text'){$('textProperties').classList.remove('hidden');$('objOpacity').value=sel.opacity;$('valOpacity').textContent=sel.opacity;$('fontFamily').value=sel.font;$('fontPreview').textContent=sel.font;$('fontPreview').style.fontFamily='\"'+sel.font+'\"';$('fontSize').value=Math.round(sel.size*sel.scale);$('btnBold').classList.toggle('active',sel.bold);$('btnItalic').classList.toggle('active',sel.italic);$('btnUpper').classList.toggle('active',sel.upper);$('strokeWidth').value=sel.strokeWidth||0;$('strokeWidthValue').textContent=sel.strokeWidth||0;$('shadowIntensity').value=sel.shadowIntensity||0;$('shadowIntensityValue').textContent=(sel.shadowIntensity||0)+'%';$('toggleTextShadow').classList.toggle('active',!!sel.shadowEnabled);$('toggleTextShadow').textContent=sel.shadowEnabled?'✓ Тень включена':'＋ Добавить тень';$('shadowStatus').textContent=sel.shadowEnabled?'Включена':'Выключена';document.querySelectorAll('#textPalette .swatch').forEach(s=>s.classList.toggle('active',s.dataset.color===sel.color));document.querySelectorAll('#strokePalette .swatch').forEach(s=>s.classList.toggle('active',s.dataset.color===(sel.strokeColor||'#171717')))}else $('textProperties').classList.add('hidden')}
+function render(){
+  draw();
+  const hasPhoto=!!photo;
+  $('emptyState').classList.toggle('hidden',hasPhoto);
+  cv.classList.toggle('hidden',!hasPhoto);
+  $('addTextFloatingBtn').classList.toggle('hidden',!hasPhoto);
+  const sel=objects[selected];
+  if(sel&&sel.type==='text'){
+    $('textProperties').classList.remove('hidden');
+    $('objOpacity').value=sel.opacity;$('valOpacity').textContent=sel.opacity;
+    $('fontFamily').value=sel.font;$('fontPreview').textContent=sel.font;
+    $('fontPreview').style.fontFamily='"'+sel.font+'"';
+    $('fontSize').value=Math.round(sel.size*sel.scale);
+    $('btnBold').classList.toggle('active',sel.bold);
+    $('btnItalic').classList.toggle('active',sel.italic);
+    $('btnUpper').classList.toggle('active',sel.upper);
+    $('strokeWidth').value=sel.strokeWidth||0;$('strokeWidthValue').textContent=sel.strokeWidth||0;
+    $('shadowIntensity').value=sel.shadowIntensity||0;$('shadowIntensityValue').textContent=(sel.shadowIntensity||0)+'%';
+    $('toggleTextShadow').classList.toggle('active',!!sel.shadowEnabled);
+    $('toggleTextShadow').textContent=sel.shadowEnabled?'✓ Тень включена':'＋ Добавить тень';
+    $('shadowStatus').textContent=sel.shadowEnabled?'Включена':'Выключена';
+    document.querySelectorAll('#textPalette .swatch').forEach(s=>s.classList.toggle('active',s.dataset.color===sel.color));
+    document.querySelectorAll('#strokePalette .swatch').forEach(s=>s.classList.toggle('active',s.dataset.color===(sel.strokeColor||'#171717')));
+  } else {
+    $('textProperties').classList.add('hidden');
+  }
+}
+
 function captureState(){return JSON.stringify({objects:objects.map(o=>{if(o.type==='image'){return{...o,img:null}}return o}),adjust,activeEffect,effectStrength})}
 function restoreState(raw){const state=JSON.parse(raw);objects=(state.objects||[]).map(o=>{if(o.type==='image'&&!o.img){return null}return o}).filter(Boolean);adjust={exposure:0,brightness:0,contrast:0,saturation:0,blur:0,...(state.adjust||{})};activeEffect=state.activeEffect||'original';effectStrength=state.effectStrength??100;selected=-1;$('effectStrength').value=effectStrength;$('effectStrengthValue').textContent=effectStrength+'%';const names={exposure:'Выдержка',brightness:'Яркость',contrast:'Контраст',saturation:'Насыщенность',blur:'Размытие'};$('adjustLabel').textContent=names[activeAdjust]||'Выдержка';$('adjustSlider').min=activeAdjust==='blur'?0:-100;$('adjustSlider').max=activeAdjust==='blur'?20:100;$('adjustSlider').value=adjust[activeAdjust]??0;$('adjustValue').textContent=$('adjustSlider').value;document.querySelectorAll('[data-adjust-key]').forEach(c=>c.classList.toggle('active',c.dataset.adjustKey===activeAdjust));document.querySelectorAll('[data-effect]').forEach(c=>c.classList.toggle('active',c.dataset.effect===activeEffect));render();updateHistory()}
 function snap(){history.push(captureState());if(history.length>50)history.shift();future=[];updateHistory()}
@@ -956,99 +698,46 @@ $('redo').onclick=()=>{if(!future.length)return;history.push(captureState());res
 $('fileInput').onchange=e=>{const file=e.target.files[0];if(!file)return;const img=new Image();img.onload=()=>{photo=img;const s=Math.min(1,2000/Math.max(img.width,img.height));cv.width=img.width*s;cv.height=img.height*s;objects=[];selected=-1;history=[];future=[];updateHistory();fitCanvasToScreen();render()};img.src=URL.createObjectURL(file)};
 document.querySelectorAll('.tab-btn').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));document.querySelectorAll('.tool-content').forEach(c=>c.classList.remove('active'));btn.classList.add('active');$('tab-'+btn.dataset.tab).classList.add('active')});
 function openTextModal(editIdx=-1){editingIndex=editIdx;if(editIdx>=0){$('modalTitle').textContent='Редактировать текст';$('modalTextInput').value=objects[editIdx].text}else{$('modalTitle').textContent='Добавить текст';$('modalTextInput').value=''}$('textModal').classList.add('visible');setTimeout(()=>$('modalTextInput').focus(),100)}$('modalCancel').onclick=()=>$('textModal').classList.remove('visible');$('modalSave').onclick=()=>{const val=$('modalTextInput').value.trim();if(!val)return;snap();if(editingIndex>=0){objects[editingIndex].text=val;selected=editingIndex}else{objects.push({type:'text',text:val,x:cv.width/2,y:cv.height/2,font:'Playfair Display',size:64,color:'#f7ebdc',bold:false,italic:false,upper:false,rotation:0,scale:1,opacity:100,strokeWidth:0,strokeColor:'#171717',shadowEnabled:false,shadowIntensity:0,hidden:false});selected=objects.length-1}$('textModal').classList.remove('visible');render()};$('addTextFloatingBtn').onclick=()=>openTextModal();$('triggerAddText').onclick=()=>openTextModal();
-function updateSelectedText(prop,val){const o=objects[selected];if(o&&o.type==='text'){o[prop]=val;draw()}}const fontOptions=Array.from($('fontFamily').options).map(o=>o.value);function chooseFont(step){const o=objects[selected];if(!o||o.type!=='text')return;let i=fontOptions.indexOf(o.font);i=(i+step+fontOptions.length)%fontOptions.length;const font=fontOptions[i];o.font=font;$('fontFamily').value=font;$('fontPreview').textContent=font;$('fontPreview').style.fontFamily='"'+fontForText(o)+'"';draw();const effectiveFont=fontForText(o);if(document.fonts&&document.fonts.load)document.fonts.load(`64px "${effectiveFont}"`).then(()=>document.fonts.ready).then(()=>{if(objects.includes(o)&&o.font===font)draw()}).catch(()=>draw());} $('fontPrev').onclick=()=>chooseFont(-1);$('fontNext').onclick=()=>chooseFont(1);$('fontFamily').onchange=e=>{const font=e.target.value;const o=objects[selected];if(o&&o.type==='text')o.font=font;$('fontPreview').textContent=font;const effectiveFont=o?fontForText(o):font;$('fontPreview').style.fontFamily='"'+effectiveFont+'"';draw();if(document.fonts&&document.fonts.load)document.fonts.load(`64px "${effectiveFont}"`).then(()=>document.fonts.ready).then(()=>draw()).catch(()=>draw());};$('fontSize').oninput=e=>{const o=objects[selected];if(o&&o.type==='text'){o.size=Math.max(8,Math.min(400,+e.target.value||8))/Math.max(.01,o.scale);draw()}};$('btnBold').onclick=()=>{const o=objects[selected];if(o?.type==='text'){o.bold=!o.bold;render()}};$('btnItalic').onclick=()=>{const o=objects[selected];if(o?.type==='text'){o.italic=!o.italic;render()}};$('btnUpper').onclick=()=>{const o=objects[selected];if(o?.type==='text'){o.upper=!o.upper;render()}};$('textPalette').onclick=e=>{const s=e.target.closest('.swatch');if(s)updateSelectedText('color',s.dataset.color);render()};$('strokePalette').onclick=e=>{const sw=e.target.closest('.swatch');if(sw){updateSelectedText('strokeColor',sw.dataset.color);render()}};$('strokeWidth').oninput=e=>{const v=+e.target.value;updateSelectedText('strokeWidth',v);$('strokeWidthValue').textContent=v};$('toggleTextShadow').onclick=()=>{const o=objects[selected];if(o&&o.type==='text'){o.shadowEnabled=!o.shadowEnabled;if(o.shadowEnabled&&!(o.shadowIntensity>0)){o.shadowIntensity=45;$('shadowIntensity').value=45;$('shadowIntensityValue').textContent='45%'}render()}};$('shadowIntensity').oninput=e=>{const o=objects[selected];const v=+e.target.value;if(o&&o.type==='text'){o.shadowIntensity=v;o.shadowEnabled=v>0;$('shadowIntensityValue').textContent=v+'%';render()}};$('btnDeleteText').onclick=()=>{if(selected>=0){snap();objects.splice(selected,1);selected=-1;render()}};
+function updateSelectedText(prop,val){const o=objects[selected];if(o&&o.type==='text'){o[prop]=val;draw()}}
+const fontOptions=Array.from($('fontFamily').options).map(o=>o.value);
+function chooseFont(step){const o=objects[selected];if(!o||o.type!=='text')return;let i=fontOptions.indexOf(o.font);i=(i+step+fontOptions.length)%fontOptions.length;const font=fontOptions[i];o.font=font;$('fontFamily').value=font;$('fontPreview').textContent=font;$('fontPreview').style.fontFamily='"'+fontForText(o)+'"';draw();const effectiveFont=fontForText(o);if(document.fonts&&document.fonts.load)document.fonts.load(`64px "${effectiveFont}"`).then(()=>document.fonts.ready).then(()=>{if(objects.includes(o)&&o.font===font)draw()}).catch(()=>draw());}
+$('fontPrev').onclick=()=>chooseFont(-1);$('fontNext').onclick=()=>chooseFont(1);
+$('fontFamily').onchange=e=>{const font=e.target.value;const o=objects[selected];if(o&&o.type==='text')o.font=font;$('fontPreview').textContent=font;const effectiveFont=o?fontForText(o):font;$('fontPreview').style.fontFamily='"'+effectiveFont+'"';draw();if(document.fonts&&document.fonts.load)document.fonts.load(`64px "${effectiveFont}"`).then(()=>document.fonts.ready).then(()=>draw()).catch(()=>draw());};
+$('fontSize').oninput=e=>{const o=objects[selected];if(o&&o.type==='text'){o.size=Math.max(8,Math.min(400,+e.target.value||8))/Math.max(.01,o.scale);draw()}};
+$('btnBold').onclick=()=>{const o=objects[selected];if(o?.type==='text'){o.bold=!o.bold;render()}};
+$('btnItalic').onclick=()=>{const o=objects[selected];if(o?.type==='text'){o.italic=!o.italic;render()}};
+$('btnUpper').onclick=()=>{const o=objects[selected];if(o?.type==='text'){o.upper=!o.upper;render()}};
+$('textPalette').onclick=e=>{const s=e.target.closest('.swatch');if(s)updateSelectedText('color',s.dataset.color);render()};
+$('strokePalette').onclick=e=>{const sw=e.target.closest('.swatch');if(sw){updateSelectedText('strokeColor',sw.dataset.color);render()}};
+$('strokeWidth').oninput=e=>{const v=+e.target.value;updateSelectedText('strokeWidth',v);$('strokeWidthValue').textContent=v};
+$('toggleTextShadow').onclick=()=>{const o=objects[selected];if(o&&o.type==='text'){o.shadowEnabled=!o.shadowEnabled;if(o.shadowEnabled&&!(o.shadowIntensity>0)){o.shadowIntensity=45;$('shadowIntensity').value=45;$('shadowIntensityValue').textContent='45%'}render()}};
+$('shadowIntensity').oninput=e=>{const o=objects[selected];const v=+e.target.value;if(o&&o.type==='text'){o.shadowIntensity=v;o.shadowEnabled=v>0;$('shadowIntensityValue').textContent=v+'%';render()}};
+$('btnDeleteText').onclick=()=>{if(selected>=0){snap();objects.splice(selected,1);selected=-1;render()}};
 
-/* === СТИКЕРЫ: эмодзи + векторные фигуры === */
 function renderStickers(){
   const emojis=['✨','🌸','💗','🤍','🦋','⭐','☁️','🌷','🍒','🎀','♡','✦','✿','☀️','🌙','💫','🪞','💎','🕊️','🍓','🌿','🧸','🫧','♥'];
-  const grid=$('stickerGrid');
-  grid.innerHTML='';
-  
-  // 1. Эмодзи
+  const grid=$('stickerGrid');grid.innerHTML='';
   emojis.forEach(e=>{
-    const btn=document.createElement('div');
-    btn.className='control-card';
-    btn.style.minWidth='60px';
+    const btn=document.createElement('div');btn.className='control-card';btn.style.minWidth='60px';
     btn.innerHTML=`<span class="icon" style="font-size:30px">${e}</span>`;
-    btn.onclick=()=>{
-      if(!photo)return alert('Сначала загрузите фото');
-      snap();
-      objects.push({type:'text',text:e,sticker:true,x:cv.width/2,y:cv.height/2,font:'Arial',size:100,color:'#ffffff',bold:false,italic:false,upper:false,rotation:0,scale:1,opacity:100,hidden:false});
-      selected=objects.length-1;
-      render();
-    };
+    btn.onclick=()=>{if(!photo)return alert('Сначала загрузите фото');snap();objects.push({type:'text',text:e,sticker:true,x:cv.width/2,y:cv.height/2,font:'Arial',size:100,color:'#ffffff',bold:false,italic:false,upper:false,rotation:0,scale:1,opacity:100,hidden:false});selected=objects.length-1;render()};
     grid.appendChild(btn);
   });
-  
-  // 2. Векторные стикеры (стрелки, мазки, линии)
   shapeStickers.forEach(shape=>{
-    const btn=document.createElement('div');
-    btn.className='control-card';
-    btn.style.minWidth='60px';
-    btn.title=shape.name;
-    
-    // Мини-иконка через SVG (для показа в панели)
-    const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
-    svg.setAttribute('viewBox','0 0 60 40');
-    svg.setAttribute('width','40');
-    svg.setAttribute('height','28');
-    svg.style.stroke = '#e0a85a';
-    svg.style.fill = 'none';
-    svg.style.strokeWidth = '2.5';
-    svg.style.strokeLinecap = 'round';
-    svg.style.strokeLinejoin = 'round';
-    
-    const path = document.createElementNS('http://www.w3.org/2000/svg','path');
-    // Простой предпросмотр для каждой фигуры
-    const previews = {
-      'arrow':'M5 20 L50 20 M40 12 L50 20 L40 28',
-      'arrow-left':'M55 20 L10 20 M20 12 L10 20 L20 28',
-      'arrow-dashed':'M5 20 L45 20 M40 12 L50 20 L40 28',
-      'arrow-dashed-left':'M55 20 L15 20 M20 12 L10 20 L20 28',
-      'arrow-up':'M30 35 L30 5 M22 15 L30 5 L38 15',
-      'arrow-double':'M10 20 L50 20 M45 12 L55 20 L45 28 M15 12 L5 20 L15 28',
-      'arrow-diag':'M50 5 L10 35 M20 35 L10 35 L10 25',
-      'brush':'M5 22 Q20 5 30 20 Q40 35 55 18',
-      'brush-2':'M5 15 Q20 30 30 15 Q40 0 55 25',
-      'underline':'M5 20 Q30 30 55 20',
-      'wave':'M5 20 Q12 10 20 20 Q28 30 35 20 Q42 10 50 20',
-      'circle':'M30 5 A15 15 0 1 1 29 5',
-      'circle-dashed':'M30 5 A15 15 0 1 1 29 5',
-      'heart':'M30 30 C10 15 15 5 22 5 C27 5 30 10 30 12 C30 10 33 5 38 5 C45 5 50 15 30 30',
-      'star':'M30 5 L35 18 L48 20 L38 28 L42 38 L30 32 L18 38 L22 28 L12 20 L25 18 Z',
-      'paren-l':'M40 5 Q10 20 40 35',
-      'paren-r':'M20 5 Q50 20 20 35',
-      'check':'M10 20 L25 32 L50 8',
-      'cross':'M15 10 L45 30 M45 10 L15 30',
-      'plus':'M10 20 L50 20 M30 5 L30 35'
-    };
-    path.setAttribute('d', previews[shape.type] || '');
-    if(shape.type === 'heart' || shape.type === 'star'){
-      path.style.fill = '#e0a85a';
-      path.style.strokeWidth = '1';
+    const btn=document.createElement('div');btn.className='control-card';btn.style.minWidth='60px';btn.title=shape.name;
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 60 40');svg.setAttribute('width','40');svg.setAttribute('height','28');
+    svg.style.stroke='#e0a85a';svg.style.fill='none';svg.style.strokeWidth='2.5';svg.style.strokeLinecap='round';svg.style.strokeLinejoin='round';
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d', svgPreviews[shape.type] || '');
+    if(shape.type==='heart'||shape.type==='star'||shape.type==='bolt'||shape.type==='drop'||shape.type==='sparkle'||shape.type==='bow'||shape.type==='flower'||shape.type==='sparkles'||shape.type==='splat'||shape.type==='moon'){
+      path.style.fill='#e0a85a';path.style.strokeWidth='1';
     }
-    if(shape.type.includes('dashed') || shape.type === 'circle-dashed'){
+    if(shape.type.includes('dashed')||shape.type==='circle-dashed'||shape.type==='wave-dashed'){
       path.setAttribute('stroke-dasharray','4 3');
     }
-    svg.appendChild(path);
-    btn.appendChild(svg);
-    
-    btn.onclick=()=>{
-      if(!photo)return alert('Сначала загрузите фото');
-      snap();
-      objects.push({
-        type:'shape',
-        shape:shape.type,
-        x:cv.width/2,
-        y:cv.height/2,
-        rotation:0,
-        scale:1,
-        opacity:100,
-        hidden:false
-      });
-      selected=objects.length-1;
-      render();
-    };
+    svg.appendChild(path);btn.appendChild(svg);
+    btn.onclick=()=>{if(!photo)return alert('Сначала загрузите фото');snap();objects.push({type:'shape',shape:shape.type,x:cv.width/2,y:cv.height/2,rotation:0,scale:1,opacity:100,hidden:false});selected=objects.length-1;render()};
     grid.appendChild(btn);
   });
 }
@@ -1056,11 +745,9 @@ function renderStickers(){
 $('stickerFile').onchange=e=>{const file=e.target.files[0];if(!file||!photo)return;const img=new Image();img.onload=()=>{snap();objects.push({type:'image',img,x:cv.width/2,y:cv.height/2,w:Math.min(200,cv.width*.4),h:Math.min(200,cv.height*.4),rotation:0,scale:1,opacity:100,hidden:false});selected=objects.length-1;render()};img.src=URL.createObjectURL(file)};
 function setupAdjustments(){const names={exposure:'Выдержка',brightness:'Яркость',contrast:'Контраст',saturation:'Насыщенность',blur:'Размытие'};document.querySelectorAll('[data-adjust-key]').forEach(card=>card.onclick=()=>{activeAdjust=card.dataset.adjustKey;document.querySelectorAll('[data-adjust-key]').forEach(c=>c.classList.toggle('active',c===card));$('adjustLabel').textContent=names[activeAdjust];$('adjustSlider').min=activeAdjust==='blur'?0:-100;$('adjustSlider').max=activeAdjust==='blur'?20:100;$('adjustSlider').value=adjust[activeAdjust];$('adjustValue').textContent=adjust[activeAdjust]});$('adjustSlider').addEventListener('pointerdown',()=>snap(),{passive:true});$('adjustSlider').addEventListener('touchstart',()=>snap(),{passive:true});$('adjustSlider').oninput=e=>{adjust[activeAdjust]=+e.target.value;$('adjustValue').textContent=e.target.value;draw()};$('objOpacity').oninput=e=>{const o=objects[selected];if(o){o.opacity=+e.target.value;draw()}$('valOpacity').textContent=e.target.value};document.querySelectorAll('[data-effect]').forEach(card=>card.onclick=()=>{if(activeEffect!==card.dataset.effect)snap();activeEffect=card.dataset.effect;effectStrength=100;$('effectStrength').value=100;$('effectStrengthValue').textContent='100%';document.querySelectorAll('[data-effect]').forEach(c=>c.classList.toggle('active',c===card));draw()});$('effectStrength').oninput=e=>{effectStrength=+e.target.value;$('effectStrengthValue').textContent=effectStrength+'%';draw()}}
 
-/* === ЖЕСТЫ НА ХОЛСТЕ: перетаскивание, пинч-зум, поворот двумя пальцами === */
 let dragState=null;
 const activePointers=new Map();
 let pinchStart=null;
-
 function getCanvasCoords(e){const r=cv.getBoundingClientRect();return{x:(e.clientX-r.left)*(cv.width/r.width),y:(e.clientY-r.top)*(cv.height/r.height)}}
 function pointerDistance(a,b){return Math.hypot(a.x-b.x,a.y-b.y)}
 function pointerAngle(a,b){return Math.atan2(b.y-a.y, b.x-a.x)*180/Math.PI}
@@ -1070,8 +757,6 @@ cv.addEventListener('pointerdown',e=>{
   cv.setPointerCapture(e.pointerId);
   const p=getCanvasCoords(e);
   activePointers.set(e.pointerId,p);
-  
-  // Удаление по крестику
   if(activePointers.size===1&&selected>=0){
     const so=objects[selected];
     if(so&&(so.sticker||so.type==='image'||so.type==='shape')){
@@ -1083,62 +768,40 @@ cv.addEventListener('pointerdown',e=>{
       }
     }
   }
-  
-  // Два пальца — пинч + поворот
   if(activePointers.size===2&&selected>=0){
     const pts=[...activePointers.values()];
     const o=objects[selected];
     const currentAngle = pointerAngle(pts[0],pts[1]);
-    pinchStart={
-      distance: pointerDistance(pts[0],pts[1]),
-      angle: currentAngle,
-      scale: o.scale,
-      rotation: o.rotation
-    };
-    dragState=null;
-    return;
+    pinchStart={distance: pointerDistance(pts[0],pts[1]),angle: currentAngle,scale: o.scale,rotation: o.rotation};
+    dragState=null;return;
   }
   if(activePointers.size>1)return;
-  
-  // Один палец — обычный выбор и перетаскивание
   let hit=-1;
   for(let i=objects.length-1;i>=0;i--){
-    const o=objects[i];
-    if(o.hidden)continue;
+    const o=objects[i];if(o.hidden)continue;
     const b=getBounds(o);
     if(Math.abs(p.x-o.x)<b.w/2+20&&Math.abs(p.y-o.y)<b.h/2+20){hit=i;break}
   }
-  selected=hit;
-  render();
-  if(selected>=0){
-    snap();
-    const o=objects[selected];
-    dragState={startX:p.x,startY:p.y,objX:o.x,objY:o.y};
-  }
+  selected=hit;render();
+  if(selected>=0){snap();const o=objects[selected];dragState={startX:p.x,startY:p.y,objX:o.x,objY:o.y}}
 });
 
 cv.addEventListener('pointermove',e=>{
   if(!activePointers.has(e.pointerId))return;
   const p=getCanvasCoords(e);
   activePointers.set(e.pointerId,p);
-  
-  // Пинч + поворот
   if(activePointers.size===2&&selected>=0&&pinchStart){
-    const pts=[...activePointers.values()];
-    const o=objects[selected];
+    const pts=[...activePointers.values()];const o=objects[selected];
     const ratio=pointerDistance(pts[0],pts[1])/Math.max(1,pinchStart.distance);
     o.scale=Math.max(.15,Math.min(8,pinchStart.scale*ratio));
-    // Поворот
     const currentAngle = pointerAngle(pts[0],pts[1]);
     let deltaAngle = currentAngle - pinchStart.angle;
-    // Нормализация угла в пределах -180..180
     while(deltaAngle > 180) deltaAngle -= 360;
     while(deltaAngle < -180) deltaAngle += 360;
     o.rotation = pinchStart.rotation + deltaAngle;
     if(o.type==='text')$('fontSize').value=Math.round(o.size*o.scale);
     draw();return;
   }
-  
   if(!dragState||selected<0)return;
   const o=objects[selected];
   o.x=dragState.objX+(p.x-dragState.startX);
@@ -1146,15 +809,14 @@ cv.addEventListener('pointermove',e=>{
   draw();
 });
 
-function endPointer(e){
-  activePointers.delete(e.pointerId);
-  if(activePointers.size<2)pinchStart=null;
-  if(activePointers.size===0)dragState=null;
-}
+function endPointer(e){activePointers.delete(e.pointerId);if(activePointers.size<2)pinchStart=null;if(activePointers.size===0)dragState=null}
 cv.addEventListener('pointerup',endPointer);
 cv.addEventListener('pointercancel',endPointer);
 cv.addEventListener('dblclick',()=>{if(selected>=0&&objects[selected]?.type==='text')openTextModal(selected)});
 
-$('export').onclick=()=>{if(!photo)return alert('Нет фотографии для сохранения');const old=selected;selected=-1;draw();const a=document.createElement('a');a.download='studio-edit.png';a.href=cv.toDataURL('image/png');a.click();selected=old;draw()};$('reset').onclick=()=>{photo=null;objects=[];selected=-1;history=[];future=[];adjust={exposure:0,brightness:0,contrast:0,saturation:0,blur:0};activeAdjust='exposure';activeEffect='original';effectStrength=100;$('effectStrength').value=100;$('effectStrengthValue').textContent='100%';$('adjustSlider').min=-100;$('adjustSlider').max=100;$('adjustSlider').value=0;$('adjustValue').textContent='0';$('adjustLabel').textContent='Выдержка';document.querySelectorAll('[data-adjust-key]').forEach(c=>c.classList.toggle('active',c.dataset.adjustKey==='exposure'));document.querySelectorAll('[data-effect]').forEach(c=>c.classList.toggle('active',c.dataset.effect==='original'));render();updateHistory()};window.addEventListener('resize',fitCanvasToScreen);init();
+$('export').onclick=()=>{if(!photo)return alert('Нет фотографии для сохранения');const old=selected;selected=-1;draw();const a=document.createElement('a');a.download='studio-edit.png';a.href=cv.toDataURL('image/png');a.click();selected=old;draw()};
+$('reset').onclick=()=>{photo=null;objects=[];selected=-1;history=[];future=[];adjust={exposure:0,brightness:0,contrast:0,saturation:0,blur:0};activeAdjust='exposure';activeEffect='original';effectStrength=100;$('effectStrength').value=100;$('effectStrengthValue').textContent='100%';$('adjustSlider').min=-100;$('adjustSlider').max=100;$('adjustSlider').value=0;$('adjustValue').textContent='0';$('adjustLabel').textContent='Выдержка';document.querySelectorAll('[data-adjust-key]').forEach(c=>c.classList.toggle('active',c.dataset.adjustKey==='exposure'));document.querySelectorAll('[data-effect]').forEach(c=>c.classList.toggle('active',c.dataset.effect==='original'));render();updateHistory()};
+window.addEventListener('resize',fitCanvasToScreen);
+init();
 </script>
 </body></html>
